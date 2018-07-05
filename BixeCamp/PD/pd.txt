@@ -1,0 +1,53 @@
+PROGRAMACAO DINAMICA	
+
+n! = ideia do uso de recursao e pilha de recursao
+
+Complexidade de execuçao do programa depende da complexidade maior sem os temrmos multiplicadores, ou seja,
+nao importa se ´e n² + n ou so n², os dois tem a mesma complexidade, pois o +n nao interfere muito
+
+O algorotimo de finbonacci vai gerar uma arvore de recursao, pois f = f(n-1) + f(n-2), logo tera que repitir
+o mesmo calculo muitas vezes, com O(2^n).
+Algo mais inteligente, seria que as unicas operacoes que adicioanm ao numero de fibonacci sao os ultimos nos 
+da arvore de execucao, ou seja, um programa usando dessa propriedade teria O(Fn).
+Um jeito ainda mais inteligente seria fazer uma array com os valores de fibbonacci, usar um loop para para ir 
+calculando ate o valor usando a array, dai segue O(n).
+
+Portanto, quase sempre, e melhor tornar o codigo recursivo em um codigo iterativo, o que diminuita a complexidade.
+Quando ha repetiçoes/estados use um codigo iterativo, assim, voce nao despercidiçara recursos computacionais em 
+operaçoes que ja forma realizadas.
+
+Problema teclas telefones antigas:
+	a = 1
+	b = 11
+	c = 111
+	d = 2
+	e = 22
+	......
+
+	Quantas mensagem podem ser escritas a partir da sequencia 11233?
+	1º: tentar encontrar uma solucao exponencial
+	2º: tentar encontrar uma estrutura recursiva
+	3º: tentar achar pd][]
+
+	P(n) = numeor de possibolidades para n numeros iguais
+	p(n) = P(n-1) + p(n-2) + P(n-3)
+
+	agrupar elementos iguais, e ver o numero de elementos igual como n, depois multiplical-los.
+
+Problema troco de moedas:
+	ver o numero minimo de moedas que eu tenho que dar para devolver aql troco
+	troco = 100
+	moedas = [1, 50, 98]
+
+	criar um funcao f(saldo) que devolvera o numero minimo de moedas, e guardar o f de um saldo numa array do tamnho do troco
+	iterar cada numero ate o valor total do troco, testar a subtraçao de cada valor de moeda e pegar o minimo dos f's possiveis
+
+	f(0) = 0, f(1) = 1, f(2) = 2 ... f(50) -> testa para f(50-1) e f(50-50) -> f(50) = 1 ... f(100) -> min(f(100-1), f(100-50), f(100-98)) + 1.
+
+Resumindo: numa DP iterativa voce guarda os valores ja calculados e utiliza eles para operaçoes futuras, assim, voce economiza
+MUITOOOOOO processamento. 
+ideia sempre de fazer uso da recursao, mas com checagem se aquele dado ja foi calculado, ou seja, uma ideia de reciclagem.
+
+http://www.spoj.com/problems/ACODE/
+http://br.spoj.com/problems/TROCO13/
+http://br.spoj.com/problems/MOEDAS/

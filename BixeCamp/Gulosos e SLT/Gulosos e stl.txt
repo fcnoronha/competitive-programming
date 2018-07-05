@@ -1,0 +1,66 @@
+Algoritmos gulosos
+
+	Problema da mochila fracionaria
+		tanque: l litros de volume
+		n postos
+		pi: preço do litroo da gasolina
+		ei: estoque de gasolina
+		Q: qual o melhor custo/benficio
+
+		EX - n = 4 | L = 10
+		p1 = 5 | e1 = 5
+		p2 = 3 | e2 = 3
+		p3 = 10| e3 = 10
+		p4 = 7 | e4 = 10
+
+		Compra o maximo possivel no mais barato(p2), depois compra o maximo no proximo mais barato possivle(p1), repete(p4).
+
+		Ordena os postos do mais barato pro mais caro
+		itera todos os postos, 1 ate n
+		pega o maximo que poder do posto ate completar o tanque
+
+	Problema de scheduling 
+		n consultas
+		inii, fimi: inicio e fim das consultas
+		organizar elas de forma que nao tenha um gap entre os horarios e as consultas nao fiquem no mesmo hoario, sendo que vc pegaria o maior numero de consultas nao conflitantes
+
+		--       ----  > maximo = 4 consultas
+         --- -- -  --
+
+		R: pegar a consulta que termina mais cedo, depois escolher a proxima que termina mais cedo e começa depois da primeira, repetir.
+
+Funçoes STL
+
+	<int>, <str>: mostram o tipo das funcoes
+
+	Queue -> fila, adiciona ultimo e retira primeiro
+		.push(x): adciiona elemento x ao fim da fila
+		.pop(): remove um elemento da fila, sempre o primeiro 
+		.front(): retorna o valor do prieiro elemento da fila
+		.empty(): retorna booleano
+
+		queue<int> q;
+
+	Stack -> Pilha, retira o de cima e insere no de cima
+		.push(x): insere elemtno x no topo da pilha
+		.pop(): remove elemento x no topo da pilha
+		.top(): retorna o valor do elemento do topo da pilha
+
+		stack<int> st;
+
+	vector
+		.push_back(x): insere elemento x no final do vetor
+		.pop_back(): remove o ultimo elemento
+		[i]: retorna i-esima posiçao do vector
+		.size(): retorna tamanho do vetor
+		.clear(): limpa o vector
+
+		vector<int> v;
+
+	ESTUDAR 'MAP' E 'SET'
+
+	Problema de soma acumulada
+		ao inves de fazer um loop para percorrer todos elementos e ir realizando a soma, ja ir criando um vetor de soma acumulada(s_acu) no momento de entrada de dados. Ao fazer isso, para saber a soma dos numeros entre i e j, pega-se s_acu[j] - s_acu[i-1].
+
+	-> max_element (first_iterator, last_iterator) – To find the maximum element of a vector.
+	-> min_element (first_iterator, last_iterator) – To find the minimum element of a vector.
