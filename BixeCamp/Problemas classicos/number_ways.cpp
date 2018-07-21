@@ -7,62 +7,27 @@ int n;
 
 int main(){
 	cin >> n;
-	long long int a[n+2];
-	int uni[n+2];
+	long long int a[n+1];
+	int uni[n+1];
 
-	a[0] = 0;
-	for(int i = 1; i <= n; i++){
+	for(int i = 0; i < n; i++){
 		cin >> a[i];
 		uni[i] = a[i];
-		a[i] += a[i-1]; 
+		if(i > 0) a[i] += a[i-1]; 
 	}
 
-	long long int div = a[n]/3;
-	bool soma = true;
-	int sum = 0;
-
-	//testando pra primeira subarray
-	int i = n;
-	while(a[i] != div && soma){
-		if(i == 0) soma = false;
-		i--;
+	if(a[n-1] % 3 != 0){
+		cout << "0" << endl;
+		return 0;
 	}
-	if(a[i] == div){
-		sum++;
-		int k = i+1;
-		while(uni[k] == 0){
-			k++;
-			sum++;
-		}	
-		k = i-1;
-		while(uni[k] == 0){
-			k--;
-			//sum++;
-		}	
-	} 
 
-	//testando pra ultima subarray
-	int j = n-1;
-	while(a[n]-a[j] != div && soma){
-		if(j == 0) soma = false;
-		j--;
+	long long int div = a[n-1]/3;
+	long long int sum = 0, acu = 0;
+
+	for(int i = 0; i < n-1; i++){
+		if(a[i] == div*2) sum += acu;
+		if(a[i] == div) acu++;
 	}
-	if(a[n]-a[j] == div){
-		sum++;
-		int k = j+1;
-		while(uni[k] == 0){
-			k++;
-			sum++;
-		}	
-		k = j-1;
-		while(uni[k] == 0){
-			k--;
-			//sum++;
-		}	
-	} 
 
-	if(soma) cout << sum << endl;
-	else cout << 0 << endl;
-
-	//arruma ai: ideia de incrementar 1 quando o começo/fim da array tem 0's
+	cout << sum << endl;
 }
