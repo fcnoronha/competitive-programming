@@ -11,22 +11,34 @@ int main(){
 	int n,m;
 	while(cin >> n){
 		cin >> m;
-		vector<int> adj[n+1];
+		
 		int u, v;
 		vector<int> pos(n+1, 0);
+		vector<int> adj[n+1];
+		queue<int> q;
 
 		while(m--){
 			cin >> u >> v;
 			adj[u].push_back(v);
 			adj[v].push_back(u);
 		}
-		pos[1] = 1;
 
 		bool haha = true;
-		for(int i = 1; i <= n; i++){
-			for(int u : adj[i]){
-				if(pos[u] == 0) pos[u] = -pos[i];
-				else if(pos[u] == pos[i]) haha = false;
+		
+		for(int i = 1; i < pos.size(); i++){
+			if(pos[i] != 0) continue;
+			q.push(i);
+			pos[i] = 1;
+			while(!q.empty()){
+				int v = q.front();
+				q.pop();
+				for(int u : adj[v]){
+					if(pos[u] == 0){
+						pos[u] = -pos[v];
+						q.push(u);
+					}
+					else if(pos[u] == pos[v]) haha = false;
+				}				
 			}
 		}
 		
