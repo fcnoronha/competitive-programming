@@ -19,8 +19,9 @@ int main(){
 					ans = max(ans, sqrt(pow(x[i]-x[j], 2.0) + pow(y[i]-y[j], 2.0))*2.0);
 			}
 			anss = min(anss, ans);
+			//ans = 0.0;
 		}
 
-		cout << "Teste " << t << endl << floor(anss + 6.0) << endl << endl;
+		cout << "Teste " << t << endl << floor(ans + 4.0) << endl << endl;
 	}
 }

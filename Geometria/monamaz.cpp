@@ -5,9 +5,11 @@ using namespace std;
 
 int x[1001], y[1001], mp[1001][3], n, t, i, j;
 double dist[1001][2];
-
+bool visited[1001];
+	
 struct a{
-	int n, x, y, d1, d2;
+	int n, x, y;
+	int d1, d2;
 	struct a* mp1;
 	struct a* mp2;
 }ant[1001];
@@ -16,31 +18,74 @@ int main(){
 	while (cin >> n && n != 0){
 		t++; 
 		bool BotoFe = true;
+		fill (visited, visited+n, false);
 
 		for (i = 0; i < n; i++) cin >> ant[i].x >> ant[i].y, ant[i].n = i;
 
 		for (i = 0; i < n; i++) for (j = 0; j < n; j++){
 			if (j != i){
-				int d = (int)sqrt(pow(x[i]-x[j], 2) + pow(y[i]-y[j], 2));
-				if (mp[i][0] == 0) dist[i][0] = d, mp[i][1] = j, mp[i][0] = 1;
-				else if (mp[i][0] == 1) dist[i][1] = d, mp[i][2] = j, mp[i][0] = 2;
-				else if (mp[i][0] == 2){
-					if (d == dist[i][0] && (x[j] <= x[mp[i][1]] || (x[j] <= x[mp[i][1]] && y[j] <= y[mp[i][1]])))
-						mp[i][1] = j;
-					else if (d == dist[i][1] && (x[j] <= x[mp[i][2]] || (x[j] <= x[mp[i][2]] && y[j] <= y[mp[i][2]])))
-						mp[i][2] = j;
-					else if (dist[i][0] == min(dist[i][0], dist[i][1]) && d < dist[i][1]) dist[i][1] = d, mp[i][2] = j;
-					else if (dist[i][1] == min(dist[i][0], dist[i][1]) && d < dist[i][0]) dist[i][0] = d, mp[i][1] = j;
+
+				int d = pow(ant[i].x-ant[j].x, 2) + pow(ant[i].y-ant[j].y, 2);
+
+				if (!ant[i].mp1) ant[i].mp1 = &ant[j], ant[i].d1 = d; // Caso ainda n tenha sido atribuido o primeiro mais perto
+				
+				else if (!ant[i].mp2) ant[i].mp2 = &ant[j], ant[i].d2 = d;
+				
+				else if (ant[i].d1 == ant[i].d2 && ant[i].d2 == d){
+					int x1, x2, y1, y2;
+					x1 = ant[i].mp1->x; y1 = ant[i].mp1->y;
+					x2 = ant[i].mp2->x; y2 = ant[i].mp2->y;
+
+					if (x1 < x2 || (x1 <= x2 && y1 < y2)){
+						if (x1 < ant[j].x || (x1 <= ant[j].x && y1 < ant[j].y)){
+							ant[i].mp1 = &ant[j];
+							ant[i].d1 = d;
+						}
+					}
+					else if (x2 < x1 || (x2 <= x1 && y2 < y1)){
+						if (x2 < ant[j].x || (x2 <= ant[j].x && y2 < ant[j].y)){
+							ant[i].mp2 = &ant[j];
+							ant[i].d2 = d;
+						}
+					}
 				}
+
+				else if (min(ant[i].d1, d) == d){
+					ant[i].mp1 = &ant[j];
+					ant[i].d1 = d;
+				}
+
+				else if (min(ant[i].d2, d) == d){
+					ant[i].mp2 = &ant[j];
+					ant[i].d2 = d;
+				}
+
+				else if (min(ant[i].d1, ant[i].d2) == ant[i].d1 && ant[i].d1 > d){
+					ant[i].d1 = d;
+					ant[i].mp1 = &ant[j];
+				}
+				else if (min(ant[i].d1, ant[i].d2) == ant[i].d2 && ant[i].d2 > d){
+					ant[i].d2 = d;
+					ant[i].mp2 = &ant[j];
+				}				
 			} 
 		}
+		cout << "paupau" << endl;
+		queue<int> q;
+		q.push(0);
+		while (!q.empty()){
+			int v = q.front();
+			q.pop();
+			if (visited[v]) continue;
+			visited[v] = true;
+			if (ant[v].mp1) q.push(ant[v].mp1->n); 
+			if (ant[v].mp2) q.push(ant[v].mp2->n);
+			cout << ant[v].mp1->n << ant[v].mp1->n << endl; 
 
-		for (i = 0; i < n; i++) for (j = 1; j < 3; j++) {
-			if (mp[i][j] != -1){
-				int ant = mp[i][j];
-				if (mp[ant][1] != i && mp[ant][2] != i) BotoFe = false;
-			}
 		}
+
+
+		for (i = 0; i < n; i++) if (!visited[i]) BotoFe = false;
 
 		(BotoFe)? cout << "All stations are reachable." << endl : cout << "There are stations that are unreachable." << endl;
 	}
