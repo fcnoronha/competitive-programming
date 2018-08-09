@@ -1,3 +1,5 @@
+// http://www.codcad.com/problem/48
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -14,32 +16,28 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
-int n, a[100000], p[100000], sum, mult, total;
-
+int n, ini, fim, hi, hf, cont;
+vector<pair<int,int> > v;
 int main(){
 	cin >> n;
 
 	fr(i, n){
-		cin >> a[i] >> p[i];
+		cin >> ini >> fim;
+		v.pb(mp(fim, ini));
+	}
 
-		if(i == 0){
-			sum = a[0];
-			mult = p[0];
-		}
-		else{
-			if(p[i] < mult){
-				total = total + (mult*sum);
-				mult = p[i];
-				sum = a[i];
-			}
-			else{
-				sum += a[i];
-			}
+	sort(v.begin(), v.end());
+
+	hf = v[0].first;
+	cont ++;
+
+	fr(i, n){
+		if(v[i].second >= hf){
+			hf = v[i].first;
+			cont ++;
 		}
 	}
 
-	total += mult * sum;
-
-	cout << total << endl;
+	cout << cont << endl;
 }
 

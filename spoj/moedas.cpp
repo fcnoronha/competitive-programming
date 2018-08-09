@@ -1,3 +1,5 @@
+// http://br.spoj.com/problems/MOEDAS/
+
 #include<bits/stdc++.h>
 using namespace std;
 

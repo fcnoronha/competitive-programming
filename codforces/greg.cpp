@@ -1,4 +1,6 @@
-	#include "bits/stdc++.h"
+// http://codeforces.com/problemset/problem/295/A
+
+#include "bits/stdc++.h"
 using namespace std;
 
 #define pb push_back

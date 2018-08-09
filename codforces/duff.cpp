@@ -1,3 +1,5 @@
+// http://codeforces.com/contest/588/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -14,27 +16,32 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
-int n, cont;
-string s;
+int n, a[100000], p[100000], sum, mult, total;
 
 int main(){
 	cin >> n;
 
-	bool res = true;
+	fr(i, n){
+		cin >> a[i] >> p[i];
 
-	fr(i, n+1){
-		getline(cin, s);	
-
-		for(int h = 0; h < s.size(); h++){
-			if(s[h] == '{') cont ++;
-			else if(s[h] == '}') cont --;
-
-			if(cont < 0) res = false;
+		if(i == 0){
+			sum = a[0];
+			mult = p[0];
 		}
-
+		else{
+			if(p[i] < mult){
+				total = total + (mult*sum);
+				mult = p[i];
+				sum = a[i];
+			}
+			else{
+				sum += a[i];
+			}
+		}
 	}
 
-	if(res == true and cont == 0) cout << "S" << endl;
-	else cout << "N" << endl;
+	total += mult * sum;
+
+	cout << total << endl;
 }
 

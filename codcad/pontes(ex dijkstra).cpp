@@ -1,3 +1,5 @@
+// http://www.codcad.com/problem/122
+
 #include <bits/stdc++.h>
 using namespace std;
 
