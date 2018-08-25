@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-node seg[4*maxn];
+int nodes[4*MAX];
 int com[4*maxn], fim[4*maxn];
 
 node void; // A definir dependendo do problema, vai ser o elemento neutro
@@ -12,17 +12,17 @@ node build(int node, int comv, int fimv){ //funçao construtora da segtree
 	if (comv == fimv) // Se e uma folha
 		return seg[node] = v[comv]; // v e o vetor que guarda valores unitarios
 	int meio = fimv - (fimv-conv)/2; // calculando a media para evitar overflow
-	seg[node] = merge(build(2*node, comv, meio), build(2*node+1, meio+1, fimv));
+	seg[node] = build(2*node, comv, meio) + build(2*node+1, meio+1, fimv);
 	return seg[node];
 }
 
 node query(int node, int comq, int fimq){ // Retorna o valor do intervalor
 	if (fim[node] < conq || com[node] > fimq) return void;
 	if (com[node] >= conq && fim[node] <= fimq) return seg[node];
-	return merge(query(2*node, conq, fimq), query(2*node+1, conq, fimq));
+	return query(2*node, conq, fimq) - query(2*node+1, conq, fimq);
 }
 
-void change(int node, int i, node x){ // muda inesimo elemento pra x
+void change(int node, int i, int x){ // muda inesimo elemento pra x
 	if (com[node] > i || fim[node] < i) return;
 	if (com[node] == i && fim[node] == i){
 		v[i] = x; // Atualizando vetor de valores
@@ -31,7 +31,7 @@ void change(int node, int i, node x){ // muda inesimo elemento pra x
 	}
 	change(2*node, i, x); // Atualiza os filhos
 	change(2*node + 1 , i, x);
-	seg[node] = merge(seg[2*node], seg[2*node+1]); // Recalcula o segmento
+	seg[node] = seg[2*node] + seg[2*node+1]; // Recalcula o segmento
 }
 
 // --LAZY SEG
