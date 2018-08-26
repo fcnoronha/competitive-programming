@@ -17,9 +17,9 @@ node build(int node, int comv, int fimv){ //funçao construtora da segtree
 }
 
 node query(int node, int comq, int fimq){ // Retorna o valor do intervalor
-	if (fim[node] < conq || com[node] > fimq) return void;
-	if (com[node] >= conq && fim[node] <= fimq) return seg[node];
-	return query(2*node, conq, fimq) - query(2*node+1, conq, fimq);
+	if (fim[node] < comq || com[node] > fimq) return void;
+	if (com[node] >= comq && fim[node] <= fimq) return seg[node];
+	return query(2*node, comq, fimq) + query(2*node+1, comq, fimq);
 }
 
 void change(int node, int i, int x){ // muda inesimo elemento pra x
