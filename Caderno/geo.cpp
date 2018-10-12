@@ -136,6 +136,42 @@ bool isConvex(vector<pii> &P) {
 	return true; 
 }
 
+// Angulos em um triangulo
+double quad(pii x, pii y) 
+{ 
+    double xd = x.f - y.f; 
+    double yd = x.s - y.s; 
+    return xd*xd + yd*yd; 
+} 
+
+int AngulosEmTri(){ // p[i] um pair com x e y do ponto i
+  double a2 = quad(p[2], p[3]);
+  double b2 = quad(p[1], p[3]);
+  double c2 = quad(p[1], p[2]);
+
+  double a = sqrt(a2);
+  double b = sqrt(b2);
+  double c = sqrt(c2);
+
+  double ang1 = acos((b2 + c2 - a2)/(2*b*c));
+  double ang2 = acos((a2 + c2 - b2)/(2*a*c));
+  double ang3 = acos((a2 + b2 - c2)/(2*a*b));
+
+  ang1 = ang1*180/PI; // Valores do angulos em si
+  ang2 = ang2*180/PI;
+  ang3 = ang3*180/PI; 
+
+  if (isnan(ang1)) return 1; // Checkings adicionais
+  if (isnan(ang2)) return 1;
+  if (isnan(ang3)) return 1;
+
+  if (abs(ang1 - 90.0) < EPS) return 1;
+  if (abs(ang2 - 90.0) < EPS) return 1;
+  if (abs(ang3 - 90.0) < EPS) return 1;
+
+  return 0;
+}
+
 // COnvex hull em jarvis (On^2):
 void convexHull(pii points[], int n)
 {
