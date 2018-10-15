@@ -3,7 +3,7 @@
 
 typedef struct aresta{
     int dis;
-    int x, y;
+    int u, v;
 }t_aresta;
 
 // Usado na ordenaçao
@@ -45,7 +45,7 @@ int main(){
     cin >> n >> m;
     
     for (int i = 0; i < m; i++)
-        cin >> aresta[i].x >> aresta[i].y >> aresta[i].dis;
+        cin >> aresta[i].u >> aresta[i].v >> aresta[i].dis;
         
     // inicializar os representantes para o union-find
     for (int i = 0; i < n; i++) id[i] = i;
@@ -57,8 +57,8 @@ int main(){
     for(int i = 0; i < m; i++){
 
         // Se estiverem em componentes distintas, ou seja, ainda nao foram conectadas
-        if (find(aresta[i].x) != find(aresta[i].y) ){
-            join(aresta[i].x, aresta[i].y);  
+        if (find(aresta[i].u) != find(aresta[i].v) ){
+            join(aresta[i].u, aresta[i].v);  
             size++;          
             mst[size] = aresta[i];
         }        
@@ -66,5 +66,5 @@ int main(){
     
     // imprimir a MST
     for(int i = 0; i <= n; i++) 	
-    	cout << mst[i].x << " " << mst[i].y << " " << mst[i].dis << endl;
+    	cout << mst[i].u << " " << mst[i].v << " " << mst[i].dis << endl;
 }
