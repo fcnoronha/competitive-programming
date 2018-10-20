@@ -34,33 +34,3 @@ void change(int node, int i, int x){ // muda inesimo elemento pra x
 	seg[node] = seg[2*node] + seg[2*node+1]; // Recalcula o segmento
 }
 
-// --LAZY SEG
-// Ideia de setar flags nos nodes, ou seja, se voce quer adicionar 2 em um segmento
-// basta setar uma flag de adicionar 2 para aql seguimento, e depos, so na hora de 
-// consultar eu calculo essa mudança. Para isso se usar um vetor lazy[].
-
-// Definir funçao unlazy() que atualiza o valor do node autal e seta flags nos filhos
-
-void unlazy(int node){
-	if (lazy[node] == 0) return; // Nao tem nada no lazy
-	if (com[node] == fim[node]){ // Caso seja uma folha
-		seg[node] += lazy[node];
-		lazy[node] = 0;
-		return;
-	}
-	lazy[2*node] += lazy[node]; // Setando lazy nos filhos
-	lazy[2*node+1] += lazy[node];
-	seg[node] += (fim[node] = com[node]) * lazy[node]; // Atualizando meu segmento
-	lazy[node] = 0; // Ressetando valor
-}
-
-void change_lazy(int node, int coma, int fima, int x){ // Atualiza na ideia de icrementar eleentos de um segmento
-	unlazy(node); // att minha inf e jjogo pros meus filhos
-	if (com[node] >= coma && com[node] <= fima){
-		lazy[node] = x;
-		return;
-	}
-	if (fim[node] < coma || com[node] > fima) return; // O node nao esta no intervalo que eu quero att
-	change_lazy(2*node, coma, fima, x);
-	change_lazy(2*node +1, coma, fima, x);
-}
