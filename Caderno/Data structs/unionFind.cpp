@@ -71,6 +71,8 @@ int find(int p){
 	if (id[p] == p) return p;
 	return id[p] = find(id[p]); // Fazendo com que o elemento aponte diretamente para o representate
 }
+
+fr(i, n) id[i] = i, sz[i] = 1; // Nao esquecer
 // Com essa mundança, a complexidade de find fica praticamente O(1)
 
 // Assim, fazemos com que as duas operaçoes fiquem praticamente constantes.
