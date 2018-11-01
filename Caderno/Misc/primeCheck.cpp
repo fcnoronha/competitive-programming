@@ -1,4 +1,4 @@
-\\ Checking with O(n^(1/2))
+// Checking with O(n^(1/2))
 
 bool isPrime(ll n){ 
     if (n <= 1)  return false; 
@@ -13,7 +13,7 @@ bool isPrime(ll n){
     return true; 
 } 
 
-\\ Checking if a number in the form (2^p + 1) is prime
+// Checking if a number in the form (2^p + 1) is prime
 bool isPrime(ll p) { 
   
   ll check = fastExp(2, p) - 1; 
