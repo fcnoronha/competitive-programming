@@ -26,7 +26,7 @@ int lis(vector<char> &v){
 			ls[lng++] = v[i];
 
 		else {
-			aux[bb(aux, -1, lng-1, v[i])] = v[i];
+			ls[bb(ls, -1, lng-1, v[i])] = v[i];
 		}
 	}
 
