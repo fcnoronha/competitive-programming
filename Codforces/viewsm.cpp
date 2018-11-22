@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1061/problem/B
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -17,6 +19,28 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
+
+
 int main(){
-	
+	ll n, m, totals = 0, maxh = 0, x, a[100008];
+
+	cin >> n >> m;
+	fr(i, n){
+		cin >> a[i];
+		maxh = max(maxh, a[i]);
+		totals += a[i];
+	}
+
+	sort(a, a+n);
+
+	ll sum = 0, h = 0;
+	fr(i, n-1){
+		h = min(a[i], h+1);
+	}
+
+	sum = a[n-1] - h + n - 1;
+	if (h == a[n-1]) sum ++;
+
+	cout << totals - sum << endl;
+
 }

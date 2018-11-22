@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1061/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -18,5 +20,14 @@ typedef pair<int,int> pii;
 typedef vector<int> vi;
 
 int main(){
-	
+	ll a, b, ans;
+
+	cin >> a >> b;
+
+	ans = b / a;
+
+	if (b%a > 0) ans++;
+
+	cout << ans << endl;
+
 }
