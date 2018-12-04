@@ -48,6 +48,8 @@ int main(){
 		for (int i = 0; i < v.size()-4; i+=2){
 			if (v[i+1] <= 1)
 				ans = max(ans, v[i]+v[i+2]+1);
+			else if (v[i+1] > 1)
+				ans = max(ans, v[i]+1);
 		}
 
 		if (ans > n-cs)
@@ -63,6 +65,9 @@ int main(){
 		for (int i = 1; i < v.size()-4; i+=2){
 			if (v[i+1] <= 1)
 				ans = max(ans, v[i]+v[i+2]+1);
+
+			else if (v[i+1] > 1)
+				ans = max(ans, v[i]+1);
 		}
 
 		if (ans > n-cs)
