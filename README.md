@@ -1,3 +1,3 @@
-# MaratonIME
+# MaratonUSP
 
-Codigos, guias e livros usados no maratonIME — grupo de extensão focado em maratonas de programaçao.
+Codes, guides and solved problems of competitive programming. All of those part of maratonUSP, an extension group of the university of São Paulo dedicated to prepare students into CP world. 
