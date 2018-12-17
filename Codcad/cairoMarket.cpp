@@ -28,7 +28,7 @@ int sum(int x, int y){
 	
 	for (int i = x; i > 0; i -= i&-i)
 		for (int j = y; j > 0; j -= j&-j)
-			ans += bit[i][j];
+			ans = max(bit[i][j], ans);
 
 	return ans;
 }
@@ -37,7 +37,7 @@ void update(int x, int y, int v){
 		
 	for (int i = x; i < MAXN; i += i&-i)
 		for (int j = y; j < MAXN; j += j&-j)
-			bit[i][j] += v;
+			bit[i][j] = max(bit[i][j], v);
 
 	return;
 }
@@ -60,13 +60,10 @@ int main(){
 			int a, b;
 			cin >> a >> b;
 
-			update(a, b, 1);
-
-			int aux = max(sum(a-1,b), sum(a,b-1));
-			int comp = sum(a,b) - sum(a-1,b) - sum(a,b-1) + sum(a-1,b-1);
-
-			aux += comp;
+			int aux = sum(a, b) + 1;
 			ans = max(ans, aux);
+
+			update(a, b, aux);
 		}
 
 		cout << ans << endl;
