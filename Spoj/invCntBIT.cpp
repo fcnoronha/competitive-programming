@@ -17,9 +17,9 @@ using namespace std;
 
 typedef long long int ll;
 typedef pair<int,int> pii;
-typedef vector<int> vi;
+typedef vector<ll> vi;	
 
-#define MAXN 200005
+#define MAXN 200009
 ll bit[200009];
 
 ll query(ll i){
@@ -45,16 +45,29 @@ int main(){
 		ll n;
 		cin >> n;
 
-		ll a[n+n];
-		frr(i, n){
-			bit[i] = 0;
-			cin >> a[i];
+		vi a, aux;
+		memset(bit, 0, (n+4)*sizeof(ll));
+
+		fr(i, n){
+			ll x;
+			cin >> x;
+			a.pb(x);
+			aux.pb(x);
 		}
 
+
+		// Compressing data
+		sort(aux.begin(), aux.end());
+		map<ll,ll> m;
+
+		int k = 1;
+		for (auto u : aux)
+			m[u] = ++k; 
+
 		ll ans = 0;
-		for (ll i = n; i > 0; i--){
-			ans += query(a[i] - 1);
-			update(1, a[i]);
+		for (ll i = n-1; i >= 0; i--){
+			ans += query(m[a[i]] - 1);
+			update(1, m[a[i]]);
 		}
 
 		cout << ans << endl;
