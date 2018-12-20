@@ -10,7 +10,7 @@ typedef vector< vector<ll> > matrix;
 matrix operator*(matrix& a, matrix& b){
 
 	int a1=a.size(); int a2=a[0].size();
-	int b1=b.size(); int b2=[0].size();
+	int b1=b.size(); int b2=b[0].size();
 
 	matrix aux; aux.resize(a1);
 	
@@ -42,11 +42,13 @@ matrix id(int x){
 
 // Exponentiate a matriz a by a factor x
 void exp(matrix& a, ll x){
-	matrix ans = id();
+	matrix ans = id(a.size());
 	while (x > 0){
 		if(x%2 == 1)
 			ans=ans*a;
 		a=a*a;
 		x=x/2;
 	}
+
+	a = ans;
 }

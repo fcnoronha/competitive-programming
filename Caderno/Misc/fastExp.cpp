@@ -26,6 +26,15 @@ ll fastexp(ll base, ll exp){
 	return ans;
 }
 
+// Recursive fastexp
+ll fastexp(ll base, ll exp){
+	if (!exp) return 1;
+	ll ans = fastexp(base, exp/2);
+	ans = (ans*ans)%mod;
+	if (exp%2) ans = (ans*base)%mod;
+	return ans%mod; 
+}
+
 // For you to devide a number that is in a modulo(%)
 ll invmod(ll x){
 	return fastexp(x, mod-2);
