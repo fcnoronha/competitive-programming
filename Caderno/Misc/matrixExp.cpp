@@ -20,10 +20,8 @@ matrix operator*(matrix& a, matrix& b){
 	for (int i = 0; i < a1; i++){
 		for (int j = 0; j < b2; j++){
 			aux[i][j]=0ll;
-			for (int k = 0; k < a2; k++){
-				aux[i][j] += a[i][k] * b[k][j];
-				aux[i][j] = aux[i][j] % mod;
-			}
+			for (int k = 0; k < a2; k++)
+				aux[i][j] = (aux[i][j] + (a[i][k] * b[k][j]))%mod;
 		}
 	}
 	return aux;

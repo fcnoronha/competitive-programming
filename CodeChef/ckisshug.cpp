@@ -1,4 +1,4 @@
-// https://www.urionlinejudge.com.br/judge/pt/problems/view/1474
+// https://www.codechef.com/problems/CKISSHUG
 
 #include "bits/stdc++.h"
 using namespace std;
@@ -19,7 +19,7 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
-const ll mod = 10000000;
+const int mod = 1000000007;
 
 ll fastexp(ll base, ll exp){
 	if (!exp) return 1;
@@ -30,21 +30,15 @@ ll fastexp(ll base, ll exp){
 }
 
 int main(){
-	ll n, k, l;
-	while (cin >> n && n != EOF){
-		cin >> k >> l;
+	ll t; cin >> t;
+	while (t--){
+		ll n, aux1, aux2, ans;
+		cin >> n;
+		aux1 = ceil((n+1)/2.0);
+		aux2 = floor((n+1)/2.0);
 
-		ll aux = (k*k)%mod;
-		aux += l;
-		aux %= mod;
-		ll ans = fastexp(aux, n/10);
-		if (n%10 != 0) ans = (ans*k)%mod;
-
-		ll aux2 = fastexp(l, (n-5)/10);
-		aux2 = (aux2*k)%mod;
-		if ((n-5)%10 != 0) aux2 = (aux2*k)%mod;
-
-		ans = (ans + aux2)%mod;
+		ans = fastexp(2, aux1) + fastexp(2, aux2) - 2ll;
+		ans %= mod;
 
 		cout << ans << endl;
 	}
