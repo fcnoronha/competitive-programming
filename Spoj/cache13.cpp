@@ -1,4 +1,4 @@
-// https://codeforces.com/problemset/problem/678/D#include "bits/stdc++.h"
+// http://br.spoj.com/problems/CACHE13/
 #include "bits/stdc++.h"
 using namespace std;
 

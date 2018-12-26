@@ -75,8 +75,10 @@ int main(){
 	matrix v;
 	fr(i, n){
 		vector<ll> aux;
-		fr(j, n)
+		fr(j, n){
 			aux.pb(0);
+			//if (i == j) aux[j] = 1;
+		}
 		v.pb(aux);
 	}
 
