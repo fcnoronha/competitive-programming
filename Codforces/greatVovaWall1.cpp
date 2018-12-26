@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1092/problem/D1
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -19,5 +21,24 @@ typedef vector<int> vi;
 
 int main(){
 	fastio
-		
+	
+	int n;
+	cin >> n;
+
+	stack<int> s;
+	fr(i, n){
+		int x;
+		cin >> x;
+
+		if (s.empty()) s.push(x);
+		else{
+			int v = s.top();
+
+			if (v == x || abs(v-x)%2 == 0) s.pop();
+			else s.push(x);
+		}
+	}
+
+	if (s.size() <= 1) cout << "YES" << endl;
+	else cout << "NO" << endl;
 }

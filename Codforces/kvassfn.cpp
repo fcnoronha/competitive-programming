@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1084/problem/B
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -18,6 +20,28 @@ typedef pair<int,int> pii;
 typedef vector<int> vi;
 
 int main(){
-	fastio
-		
+	ll n, s, mn = LLONG_MAX, ans = 0;
+	cin >> n >> s;
+
+	ll v[n];
+	fr(i, n){
+		cin >> v[i];
+		mn = min(mn, v[i]);
+	}
+
+	fr(i, n){
+		ans += v[i] - mn;
+	}
+
+	if (ans >= s){
+		cout << mn << endl;
+		return 0;
+	}
+
+	s -= ans;
+	ans = 0;
+
+	ans = ceil(s/(n*1.0));
+	if (ans <= mn) cout << mn-ans << endl;
+	else cout << "-1" << endl;
 }

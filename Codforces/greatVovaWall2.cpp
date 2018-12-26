@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1092/problem/D2
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -19,5 +21,32 @@ typedef vector<int> vi;
 
 int main(){
 	fastio
-		
+	
+	int n;
+	cin >> n;
+
+	int mx = -1;
+	stack<int> s;
+	fr(i, n){
+		int x;
+		cin >> x;
+		mx = max(mx, x);
+
+		if (s.empty()) s.push(x);
+		else{
+			int v = s.top();
+
+			if (x > v){
+				cout << "NO" << endl;
+				return 0;
+			}
+
+			if (x == v) s.pop();
+			else s.push(x);
+		}
+
+	}
+
+	if (s.size() == 0 || (s.size() == 1 && s.top() == mx)) cout << "YES" << endl;
+	else cout << "NO" << endl;
 }

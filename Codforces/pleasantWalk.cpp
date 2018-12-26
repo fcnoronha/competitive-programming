@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1090/problem/M
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -18,6 +20,26 @@ typedef pair<int,int> pii;
 typedef vector<int> vi;
 
 int main(){
-	fastio
-		
+	ll n, k;
+	cin >> n >> k;
+
+	ll aux = 0, ans = 0, ant;
+	fr(i, n){
+		if (i == 0) cin >> ant, aux = 1;
+		else {
+			ll x; cin >> x;
+			if (x != ant) {
+				aux++;
+				ant = x;
+			}
+			else {
+				ans = max(ans, aux);
+				aux = 1ll;
+			}
+		}
+	}
+
+	if (aux > 0) ans = max(ans, aux);
+
+	cout << ans << endl;	
 }
