@@ -44,7 +44,7 @@ int main(){
 	fastio
 
 	int n, m;
-	while (scanf("%d %d", &n, &m) != EOF){
+	while (cin >> n >> m && n != EOF){
 
 		ll map[n+m+9];
 
