@@ -56,7 +56,7 @@ int main(){
 
 		if (i+1 < ans.size() && ans[i+1] == s && !u[f]){
 			ans.pb(f); 
-			u[s] = true;
+			u[f] = true;
 			continue;
 		}
 
