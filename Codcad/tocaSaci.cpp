@@ -29,11 +29,37 @@ void bfs(int i, int j, int t){
 	v[i][j] = 1;
 	if (grid[i][j] == 0) return;
 
+	queue< pair<pii, int> > q;
+
 	ans[i][j] = t;
 	if (i+1 <= 1000) bfs(i+1, j, t+1);
 	if (i-1 >= 0) bfs(i-1, j, t+1);
 	if (j+1 <= 1000) bfs(i, j+1, t+1);
 	if (j-1 >= 0) bfs(i, j-1, t+1);
+
+	while (!q.empty()){
+
+		pair<pii, int> aux = q.front();
+		q.pop();
+
+		pii cord = aux.f;
+		int t = aux.s;
+
+		int i = cord.f, j = cord.s;
+
+		if (i < 0 || i > 1000 || j < 0 || j > 1000) return;
+		if (v[i][j]) return;
+
+		v[i][j] = 1;
+		if (grid[i][j] == 0) return;
+		ans[i][j] = t;
+
+		if (i+1 <= 1000) q.push({{i+1, j}, t+1});
+		if (i-1 >= 0) q.push({{i-1, j}, t+1});
+		if (j+1 <= 1000) q.push({{i, j+1}, t+1});
+		if (j-1 >= 0) q.push({{i, j-1}, t+1});
+
+	}
 }
 
 int main(){
@@ -58,6 +84,33 @@ int main(){
 		}
 	}
 
-	bfs(ini.f, ini.s, 1);
+	queue< pair<pii, int> > q;
+	q.push({{ini.f, ini.s}, 1});
+
+	// BFS itself
+	while (!q.empty()){
+
+		pair<pii, int> aux = q.front();
+		q.pop();
+
+		pii cord = aux.f;
+		int t = aux.s;
+
+		int i = cord.f, j = cord.s;
+
+		if (i < 0 || i > 1000 || j < 0 || j > 1000) continue;
+		if (v[i][j]) continue;
+
+		v[i][j] = 1;
+		if (grid[i][j] == 0) continue	;
+		ans[i][j] = t;
+
+		if (i+1 <= 1000) q.push({{i+1, j}, t+1});
+		if (i-1 >= 0) q.push({{i-1, j}, t+1});
+		if (j+1 <= 1000) q.push({{i, j+1}, t+1});
+		if (j-1 >= 0) q.push({{i, j-1}, t+1});
+
+	}
+
 	cout << ans[fim.f][fim.s] << endl;
 }
