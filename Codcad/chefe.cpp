@@ -18,7 +18,7 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
-int age[509], mp[509];
+int age[509], pose[509], epos[509];
 vector<int> adj[509];
 bool visited[509];
 
@@ -38,7 +38,7 @@ int dfs(int v){
 		if (visited[act]) continue;
 		visited[act] = 1;
 
-		ret = min(ret, age[act]);
+		ret = min(ret, age[epos[act]]);
 
 		for (auto u : adj[act]) q.push(u);
 	}
@@ -52,8 +52,11 @@ int main(){
 	ll n, m, qry;
 	while (cin >> n >> m >> qry && n != EOF){
 
-		frr(i, n) cin >> age[i], mp[i] = i;
+		frr(i, n) cin >> age[i], epos[i] = pose[i] = i;
 		frr(i, n) adj[i].clear();
+
+		// pose[i] represents the position where i-th employee is working
+		// epos[i] represents the employee working in the i-th position
 
 		int x, y;
 		fr(i, m){
@@ -68,8 +71,10 @@ int main(){
 			if (op == 'T'){
 				int a, b;
 				cin >> a >> b;
-				swap(age[a], age[b]);
-				swap(mp[a], mp[b]);
+				// swap(age[a], age[b]);
+				swap(pose[a], pose[b]);
+				swap(epos[pose[a]], epos[pose[b]]);
+				// dbg(mp[a]), dbg(mp[b]);
 			}
 
 			else {
@@ -78,7 +83,7 @@ int main(){
 				int e;
 				cin >> e;
 
-				e = mp[e];
+				e = pose[e];
 
 				int ans = dfs(e);
 				if (ans == 666) cout << "*" << endl;
