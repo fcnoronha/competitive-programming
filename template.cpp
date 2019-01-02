@@ -2,11 +2,10 @@
 using namespace std;
 
 #define pb push_back
-#define mp make_pair
-#define priority_queue pq
 #define fr(i,n) for(int i=0;i<n;i++)
 #define frr(i,n) for(int i=1;i<=n;i++)
 #define dbg(x) cout << #x << " = " << x << endl
+#define p(x) cout << #x << endl
 
 #define f first
 #define s second
@@ -15,7 +14,9 @@ using namespace std;
 
 typedef long long int ll;
 typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
 typedef vector<int> vi;
+typedef vector<ll> vl;
 
 int main(){
 	fastio
