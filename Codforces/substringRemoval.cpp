@@ -1,3 +1,5 @@
+// codeforces.com/contest/1096/problem/B
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -6,7 +8,6 @@ using namespace std;
 #define frr(i,n) for(int i=1;i<=n;i++)
 #define dbg(x) cout << #x << " = " << x << endl
 #define p(x) cout << #x << endl
-#define pv(x) for (auto u : x) cout << u << " \n"[u == *(x.end()-1)];
 
 #define f first
 #define s second
@@ -21,5 +22,25 @@ typedef vector<ll> vl;
 
 int main(){
 	fastio
-		
+
+	int n;
+	string s;
+
+	cin >> n >> s;
+
+	const ll mod = 998244353;
+	ll ans;
+
+	ll i = 1, f = n-2;
+	while (s[i] == s[i-1]) i++;
+	while (s[f] == s[f+1]) f--;
+	f = n - f - 1; 
+
+	if (s[0] == s[n-1])
+		ans = ((f+1)*(i+1))%mod;
+
+	else 
+		ans = (f+i+1)%mod;
+
+	cout << ans << endl;		
 }
