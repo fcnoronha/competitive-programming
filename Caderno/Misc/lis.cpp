@@ -1,34 +1,68 @@
-// Binary search
-int bb(vector<int> &v, int l, int r, int x){
-	while (r - l > 1){
-		int m = l + (r-l) / 
-		if (v[m] >= x)
-			r = m;
-		else 
-			l = m;
+// LIS - LONGEST INCREASING SUBSEQUENCE
+
+// O(n*logn)
+
+int lis(vector<int> &v){
+	// Return size of the longest increasing subsequence in v
+
+	vector<int> st; 
+
+	for (int i = 0; i < v.size(); i++){
+
+		// Iterator to the leftmost element of stack that isn't small than v[i]
+		vector<int>::iterator it = lower_bound(st.begin(), st.end(), v[i]);
+
+		// If it is the end of the vector, every element in st[] is smaller than v[i]
+		if (it == st.end()) st.pb(v[i]);
+
+		// We substitute value
+		else *it = v[i];
+
 	}
-	return r;
+
+	return st.size();
 }
 
-int lis(vector<char> &v){
-	if (v.size() == 0)
-		return 0;
+// OBS: if we want it to accept repeated elements, in order to get a 
+// non decreasing subsequence, we just have to change lower_bound to 
+// upper_bound.
 
-	vector<int> ls(v.size(), 0); // lasgest subsequence
-	int lng = 1;
+// If we want to get the actual LIS use the code bellow
 
-	ls[0] = v[0];
-	for (int i = 1; i < v.size(); i++){
-		if (v[i] < ls[0]) // new smallest value
-			ls[0] = v[i];
+vector<int> glis; // Will be stored here
+#define MAXN 10010 // TO BE DEFINED
 
-		else if (v[i] > ls[lng - 1]) // Extending longest subsequence
-			ls[lng++] = v[i];
+void lis(vector<int> &v){
 
-		else {
-			ls[bb(ls, -1, lng-1, v[i])] = v[i];
-		}
+	vector<int> st; // stack
+	int pos[MAXN], ft[MAXN]; // Position and father
+
+	for (int i = 0; i < v.size(); i++){
+
+		vector<int>::iterator it = lower_bound(st.begin(), st.end(), v[i]);
+
+		// Position of the element in the stack
+		int p = it - st.begin();
+
+		if (it == st.end()) st.pb(v[i]);
+		else *it = v[i];
+
+		pos[p] = i;
+
+		// If its in the first stack
+		if (p == 0) ft[i] = -1;
+
+		else ft[i] = pos[p-1];
 	}
 
-	return lng;
+	int p = pos[st.size() - 1];
+
+	while (p >= 0){
+
+		glis.pb(v[p]);
+		p = ft[p];
+
+	}
+
+	reverse(glis.begin(), glis.end());
 }

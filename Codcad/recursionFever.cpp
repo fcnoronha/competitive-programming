@@ -1,3 +1,5 @@
+// codcad.com/problem/75
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -22,7 +24,33 @@ typedef pair<ll,ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
+ll memo[1009], a[1009];
+ll n, k, m;
+
+void dp(){
+
+	for (int ki = n+1; ki <= k; ki++){
+
+		ll aux = 0;
+		frr(i, n)
+			aux = ((a[i]*memo[ki - i])%m + aux); 
+
+		memo[ki] = aux%m;
+	}
+
+}
+
 int main(){
 	fastio
-		
+	
+	cin >> n >> k >> m;
+
+	frr(i, n) cin >> a[i];
+	frr(i, n) cin >> memo[i];
+
+	dp();
+
+	cout << memo[k]%m << endl;
 }
+
+
