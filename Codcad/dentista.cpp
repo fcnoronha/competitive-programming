@@ -18,23 +18,21 @@ typedef vector<int> vi;
 
 int n, ini, fim, hi, hf, cont;
 vector<pair<int,int> > v;
+
 int main(){
 	cin >> n;
 
 	fr(i, n){
 		cin >> ini >> fim;
-		v.pb(mp(fim, ini));
+		v.pb({fim, ini});
 	}
 
 	sort(v.begin(), v.end());
 
-	hf = v[0].first;
-	cont ++;
-
 	fr(i, n){
 		if(v[i].second >= hf){
 			hf = v[i].first;
-			cont ++;
+			cont++;
 		}
 	}
 
