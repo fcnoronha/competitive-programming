@@ -1,6 +1,6 @@
 // LCA - LOWEST COMMON ANCESTOR
 
-// O(n*logn)
+// O(n*logn) pre-precessing , O(logn) queries
 
 // First, we have to find the parent of every node
 
@@ -76,12 +76,12 @@ int main(){
 	
 	int N; // Actual number of vertices - TO BE DEFINED
 	// Defining parents
-	for (int i = 1; i <= N; i++)
+	for (int i = root; i <= N; i++)
 		anc[i][0] = parent[i];
 
 	// Calculating DP
 	for (int j = 1; j < MAXL; j++)
-		for (int i = 1; i <= N; i++)
+		for (int i = root; i <= N; i++)
 			if (anc[i][j-1] != -1)
 				anc[i][j] = anc[anc[i][j-1]][j-1];
 
