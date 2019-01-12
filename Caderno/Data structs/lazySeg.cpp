@@ -2,7 +2,11 @@
 // Atualiza o no so quando aql informaçao e realmente necessaria
 // O(logn)
 
-lazy[MAXN];
+#include "bits/stdc++.h"
+using namespace std;
+
+#define MAXN 1001
+int lazy[MAXN], seg[MAXN];
 
 // Soma val em cada um dos indices no intervalor [a,b]
 void update(int node, int i, int j, int a, int b, int val){
@@ -13,7 +17,7 @@ void update(int node, int i, int j, int a, int b, int val){
 	// Caso existam operaçoes atrasadas
 	if (lazy[node]){
 		// Adicionando multiplicado devido ao numero de elementos
-		seg[node] += lazy[node]*(j-i+1)
+		seg[node] += lazy[node]*(j-i+1);
 
 		if (i != j){
 			lazy[left] += lazy[node];
@@ -28,16 +32,16 @@ void update(int node, int i, int j, int a, int b, int val){
 
 	// Se a att pega o no inteiro
 	if (a <= i && j <= b){
-		seg[node] += valor*(j-i+1);
+		seg[node] += val*(j-i+1);
 		if (i != j){
 			lazy[right] += val;
 			lazy[left] += val;
 		}
 	}
 	else {
-		update(left, i, meio, a, b, val);
-		update(right, meio+1, j, a, b, val);
-		seg[node] = sef[left] + seg[right];
+		update(left, i, mid, a, b, val);
+		update(right, mid+1, j, a, b, val);
+		seg[node] = seg[left] + seg[right];
 	}
 }
 
