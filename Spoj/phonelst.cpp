@@ -4,11 +4,12 @@
 using namespace std;
 
 #define pb push_back
-#define fr(i,n) for(int i=0;i<n;i++)
-#define frr(i,n) for(int i=1;i<=n;i++)
+#define fr(i, n) for(int i = 0; i < n; i++)
+#define frr(i, n) for(int i = 1; i <= n; i++)
 
 #define dbg(x) cout << #x << " = " << x << endl
 #define all(x)	x.begin(),x.end()
+#define ms(x, i)	memset(x, i, sizeof(x))
 
 #define p(x) cout << #x << endl
 #define pv(x) for (auto u : x) cout << u << " \n"[u == *(x.end()-1)];
@@ -23,15 +24,12 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
+typedef long double ld;
 
 #define MAXN 200009 
 
-struct t {
-
-	bool isWordEnd;
-	int lts[13]; 
-
-} trie[MAXN];
+int trie[MAXN][10];
+bool isEnd[MAXN]; 
 
 int cnt = 1; 
 bool da;
@@ -39,22 +37,23 @@ bool da;
 void add(string str, int idx, int node){
 
 	if (str.length() == idx){
-		trie[node].isWordEnd = true;
+		if (isEnd[node] || node != cnt-1) da = false; 
+		isEnd[node] = true;
 		return;
 	}
 
-	if (trie[node].isWordEnd) da = false;
+	if (isEnd[node]) da = false;
 
 	//cout << trie[node].isWordEnd << " " << str[idx] << " " << node << endl;
 
-	int &lidx = trie[node].lts[ ((int)(str[idx]-'0')) ];
+	int &lidx = trie[node][ ((str[idx]-'0')) ];
 
 	if (lidx == -1){
 
 		lidx = cnt;
 
 		for (int l = 0; l < 10; l++)
-			trie[cnt].lts[l] = -1;
+			trie[cnt][l] = -1;
 
 		cnt++;
 		add(str, idx+1, cnt-1);
@@ -74,21 +73,18 @@ int main(){
 		int n;
 		cin >> n;
 
-		string pal[n];
 		da = true;
 		cnt = 1;
 
-		fr(i, 200000){
-			trie[i].isWordEnd = false;
-			fr(j, 10)
-				trie[i].lts[j] = -1;
-		}
+		ms(trie, -1);
+		ms(isEnd, 0);
 
 		fr(i, n){
-			cin >> pal[i];
-			add(pal[i], 0, 0);
+			string pal;
+			cin >> pal;
+			add(pal, 0, 0);
 		}
-		
+
 		if (da) p(YES);
 		else p(NO);
 	}

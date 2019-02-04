@@ -3,14 +3,10 @@ using namespace std;
 
 // Store and check for strings
 
-#define MAXN 10019 
+#define MAXN 10019 // Number of words * Maximum length
 
-struct t {
-
-	bool isWordEnd;
-	int lts[26]; // 0 - position 'a'
-
-} trie[MAXN];
+int trie[MAXN][26];
+bool isEnd[MAXN]; // True if i-th node of trie is end of word
 
 int cnt = 1; // Latest node - trie[0] == root
 
@@ -18,19 +14,19 @@ void add(string str, int idx, int node){
 
 	// If its already in the end
 	if (str.length() == idx){
-		trie[node].isWordEnd = true;
+		isEnd[node] = true;
 		return;
 	}
 
-	int &lidx = trie[node].lts[ str[idx]-'a' ];
+	int &lidx = trie[node][ str[idx]-'a' ]; // Change for 0 if it's number
 	// If there is no following to that letter
 	if (lidx == -1){
 
 		lidx = cnt;
 
-		trie[cnt].isWordEnd = false;
-		for (int l = 0; l <= 25; l++)
-			trie[cnt].lts[l] = -1;
+		isEnd[cnt] = false;
+		for (int l = 0; l < 26; l++)
+			trie[cnt][l] = -1;
 
 		cnt++;
 		add(str, idx+1, cnt-1);
@@ -47,7 +43,7 @@ bool search(string str, int idx, int node){
 	if (idx == str.length())
 		return true;
 
-	int &lidx = trie[node].lts[ str[idx]-'a' ];
+	int &lidx = trie[node][ str[idx]-'a' ]; // Change for 0 if it's number
 	// Not found
 	if (lidx == -1)
 		return false;
@@ -59,7 +55,7 @@ int main(){
 
 	// Initializing root
 	for (int i = 0; i < 26; i++)
-		trie[0].lts[i] = -1;
+		trie[0][i] = -1;
 
 	add("felipe", 0, 0);
 

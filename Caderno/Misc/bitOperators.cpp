@@ -126,3 +126,10 @@ int intersection(int a, int b){
 int complement(int mask){
 	return ~(mask); // Binary complement
 }
+
+/*
+	Getting bit representation as string
+*/
+
+bitset<30> bt(x); // 30 is the number of bits, x is the value
+string str = bt.to_string();
