@@ -29,46 +29,54 @@ typedef long double ld;
 #define MAXN 7000009 
 
 int trie[MAXN][2];
-bool amt[MAXN];
+int amt[MAXN];
+int val[MAXN];
 
 int cnt = 1; 
 
-void add(string str, int idx, int node){
+void add(string str, int idx, int node, int v){
 
 	amt[node]++;
 
-	if (str.length() == idx)
+	if (str.length() == idx){
+		val[node] = v;
 		return;
-	
+	}
 
 	int &lidx = trie[node][ str[idx]-'0' ];
 	if (lidx == -1){
 
 		lidx = cnt;
 
-		isEnd[cnt] = false;
 		for (int l = 0; l < 2; l++)
 			trie[cnt][l] = -1;
 
 		cnt++;
-		add(str, idx+1, cnt-1);
+		add(str, idx+1, cnt-1, v);
 	}
 
 	else 
-		add(str, idx+1, lidx);
+		add(str, idx+1, lidx, v);
 }
 
 int search(string str, int idx, int node){
 
-	if (idx == str.length())
-		return true;
+	if (idx == str.length()){
+		return val[node];
+	}
 
-	int &lidx = trie[node][ str[idx]-'a' ];
-	// Not found
-	if (lidx == -1)
-		return false;
+	int aux = ((str[idx]-'0')+1)%2; 
+	// dbg(aux);
+	int &lidx = trie[node][aux];
+	if (amt[lidx] > 0){
+		// dbg(amt[lidx]);
+		return search(str, idx+1, lidx);
+	}
 
-	return search(str, idx+1, lidx);
+	// p(oi);
+	aux++; aux %= 2;
+
+	return search(str, idx+1, trie[node][aux]);
 }
 
 void del(string str, int idx, int node){
@@ -76,26 +84,24 @@ void del(string str, int idx, int node){
 	amt[node]--;
 
 	if (idx == str.length())
-		return 
+		return;
 
 	int &lidx = trie[node][ str[idx]-'0' ];
-	search(str, idx+1, lidx);
+	del(str, idx+1, lidx);
 }
 
 int main(){
 	fastio
-	
+
 	int q;
 	cin >> q;
-
-	multiset<int> ms;
 
 	for (int i = 0; i < 2; i++)
 		trie[0][i] = -1;
 
 	bitset<30> z(0);
 	string zero = z.to_string();
-	add(zero, 0, 0);
+	add(zero, 0, 0, 0);
 
 	while (q--){
 
@@ -104,27 +110,19 @@ int main(){
 
 		cin >> op >> x;
 
-		if (op == '+')
-			ms.insert(x);
+		// Getting bit representation
+		bitset<30> bt(x);
+		string str = bt.to_string();
 
-		else if (op == '-'){
-			// Deletes only 1 element from multiset
-			auto it = ms.find(x);
-			ms.erase(it);
-		}
+		if (op == '+')
+			add(str, 0, 0, x);
+		
+		else if (op == '-')
+			del(str, 0, 0);
 
 		else {
-
-			bitset<30> bt(x);
-			// Getting bit representation
-			string str = bt.to_string();
-
+			int s = search(str, 0, 0);
+			cout << (s^x) << endl;
 		}
 	}
-
-	// TODO: add to the trie when add to multiset
-	//		 Store the number saved when reach end of str
-	// 		 Search the follwing way: try to go to the positition
-	// that is oposite of mine (mine+1%2) if amt > 0, retrieve 
-	// number stored in the final position
 }

@@ -19,22 +19,12 @@ void add(string str, int idx, int node){
 	}
 
 	int &lidx = trie[node][ str[idx]-'a' ]; // Change for 0 if it's number
+	
 	// If there is no following to that letter
-	if (lidx == -1){
+	if (lidx == -1)
+		lidx = cnt++;
 
-		lidx = cnt;
-
-		isEnd[cnt] = false;
-		for (int l = 0; l < 26; l++)
-			trie[cnt][l] = -1;
-
-		cnt++;
-		add(str, idx+1, cnt-1);
-	}
-
-	// Otherwise, continues add
-	else 
-		add(str, idx+1, lidx);
+	add(str, idx+1, lidx);
 }
 
 bool search(string str, int idx, int node){
@@ -53,12 +43,13 @@ bool search(string str, int idx, int node){
 	
 int main(){
 
-	// Initializing root
-	for (int i = 0; i < 26; i++)
-		trie[0][i] = -1;
+	// Initializing
+	memset(trie, -1, sizeof(trie));
+	memset(isEnd, 0, sizeof(isEnd));
 
 	add("felipe", 0, 0);
 
 	cout << search("k", 0, 0) << endl;
 
+	// Consider using MAP[maxn] instead of trie[maxn][] if getting TLE
 }
