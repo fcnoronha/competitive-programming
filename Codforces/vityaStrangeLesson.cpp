@@ -24,7 +24,7 @@ typedef vector<int> vi;
 typedef vector<ll> vl;
 typedef long double ld;
 
-#define MAXN 600189
+#define MAXN 2097152
 
 int trie[MAXN][2];
 int amt[MAXN];
@@ -33,43 +33,34 @@ int mxamt[MAXN];
 
 int cnt = 1; 
 
-void add(string str, int idx, int node, int v, int a){
+void add(int str, int idx, int node, int v, int a){
 
 	amt[node] += a;
 
-	if (str.length() == idx){
+	if (21 == idx){
 		val[node] = v;
 		return;
 	}
 
-	int &lidx = trie[node][ str[idx]-'0' ];
+	int &lidx = trie[node][ ((str&(1 << (20-idx))) != 0) ];
 	if (lidx == 0)
 		lidx = cnt++;
 
 	add(str, idx+1, lidx, v, a);
 }
 
-int search(string str, int idx, int node, int ans){
+int search(int str, int idx, int node, int ans){
 
-	if (idx == str.length())
-		return val[node];
+	if (idx == 21)
+		return ans;
 	
-	int aux = (str[idx]-'0'); 
+	int aux = ((str&(1 << (20-idx))) != 0); 
 	int lidx = trie[node][aux];
 
 	if (amt[lidx] < (1 << (20-idx)) || lidx == 0){
 
-		if (aux)
-			ans |= (1<<(20-idx));
-
-		if (amt[lidx] == 0 || lidx == 0) {
-
-			for (int i = idx + 1; idx < 21; idx++)
-			if ((str[i]-'0') == 1)
-				ans |= (1 << 20-i);
-
+		if (amt[lidx] == 0 || lidx == 0) 
 			return ans;
-		}
 
 		return search(str, idx+1, lidx, ans);
 	}
@@ -78,15 +69,11 @@ int search(string str, int idx, int node, int ans){
 
 	if (aux)
 		ans |= (1<<(20-idx));
+	else
+		ans ^= (1<<(20-idx));
 
-	if (amt[trie[node][aux]] == 0 || trie[node][aux] == 0){
-
-		for (int i = idx + 1; idx < 21; idx++)
-			if ((str[i]-'0') == 1)
-				ans |= (1 << 20-i);
-
+	if (amt[trie[node][aux]] == 0 || trie[node][aux] == 0)
 		return ans;
-	}
 
 	return search(str, idx+1, trie[node][aux], ans);
 }
@@ -103,11 +90,8 @@ int main(){
 		int x;
 		cin >> x;
 
-		bitset<21> bt(x);
-		string str = bt.to_string();
-
 		if (s.find(x) == s.end()) {
-			add(str, 0, 0, x, 1);
+			add(x, 0, 0, x, 1);
 			s.insert(x);
 		}
 	}
@@ -119,10 +103,7 @@ int main(){
 
 		query ^= aux;
 
-		bitset<21> bt(query);
-		string str = bt.to_string();
-
-		int ans = search(str, 0, 0, 0);
+		int ans = search(query, 0, 0, query);
 
 		cout << (ans^query) << endl;
 	}
