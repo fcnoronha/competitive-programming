@@ -43,3 +43,25 @@ bool isNimWinner(int piles[], int n){
 
 	return (x != 0);
 }
+
+/*
+
+	The Grundy number consists of the MEX of the states that a certain 
+	state can reach. For example, lets suppose that in a state S we can 
+	reach the following states: {1,2,4,6}, the Grundy number of S is 0, 
+	if the set of reacheble states were {0,1,2,4,6}, them the Grundy of 
+	S should be 3.
+	If a game is a NIM derivative, we can let X be the XOR's operations 
+	between all Grundy numbers in that game, if X is a nonzero number, 
+	the first player wins.
+
+	A very good example of this way of thinking is my solution for the 
+	problem Marbles, available in the following link:
+	https://codeforces.com/gym/101908/submission/49813854
+
+	Now it's easy to see why we make XOR operations with the size of 
+	the piles in NIM game to see who is going to win, because the MEX 
+	of a pile with size N is N, hence we can take any quantity X, X > 0, 
+	from the pile.
+
+*/
