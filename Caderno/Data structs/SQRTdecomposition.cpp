@@ -81,6 +81,9 @@ void prepro(int n){
 
 	Now, we can calculate each query using the result of the previews one
 	to help generate the actual one.
+
+	If you want to print the queries in the input order, you should make 
+	a struct to keep track of each query index.
 */
 
 #define MAXQ 1000 // Maximum number of queries
@@ -91,8 +94,8 @@ pair<int, int> q[MAXQ]; // {l, r};
 bool comp(pair<int, int> a, pair<int, int> b){
 	// Function to sort my queries
 
-	if (a.first/bsz != b.fisrt/bsz)
-		return a.first/bsz < b.fisrt/bsz;
+	if (a.first/bsz != b.first/bsz)
+		return a.first/bsz < b.first/bsz;
 
 	return a.second < b.second;
 }
@@ -101,7 +104,7 @@ void mos(int n, int m){
 	// n is the number of elements in array a[]
 	// m is the number of queries
 
-	bsz = sqrt(n);
+	bsz = static_cast<int>(sqrt(n));
 
 	sort(q, q+m, comp);
 
@@ -121,11 +124,11 @@ void mos(int n, int m){
 		while (cl > l)
 			csum += a[--cl];
 
-		while (cr <= r)
-			csum += a[cr++];
+		while (cr < r)
+			csum += a[++cr];
 
-		while (cr > r+1)
-			csum -= a[--cr];
+		while (cr > r)
+			csum -= a[cr--];
 
 		cout << csum << endl;
 	}
