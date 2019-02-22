@@ -520,6 +520,53 @@
 	"buffers":
 	[
 		{
+			"file": "2017 Spring Waterloo ACM Local Contest/a.cpp",
+			"settings":
+			{
+				"buffer_size": 1265,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "#include \"bits/stdc++.h\"\nusing namespace std;\n\n#define pb push_back\n#define fr(i, n) for(int i = 0; i < n; i++)\n#define frr(i, n) for(int i = 1; i <= n; i++)\n\n#define dbg(x) cout << #x << \" = \" << x << endl\n#define all(x)\tx.begin(),x.end()\n#define ms(x, i)\tmemset(x, i, sizeof(x))\n\n#define p(x) cout << #x << endl\n#define pv(x) for (auto u : x) cout << u << \" \\n\"[u == *(x.end()-1)];\n\n#define f first\n#define s second\n\n#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);\n\ntypedef long long int ll;\ntypedef pair<int,int> pii;\ntypedef pair<ll,ll> pll;\ntypedef vector<int> vi;\ntypedef vector<ll> vl;\ntypedef long double ld;\n\nint main(){\n\tfastio\n\t\t\n}\n",
+			"file": "2017 Spring Waterloo ACM Local Contest/c.cpp",
+			"file_size": 675,
+			"file_write_time": 131937162517008250,
+			"settings":
+			{
+				"buffer_size": 675,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "2017 Spring Waterloo ACM Local Contest/e.cpp",
+			"settings":
+			{
+				"buffer_size": 1306,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "2017 Spring Waterloo ACM Local Contest/e2.cpp",
+			"settings":
+			{
+				"buffer_size": 1316,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "2017 Spring Waterloo ACM Local Contest/d.cpp",
+			"settings":
+			{
+				"buffer_size": 1193,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "template.cpp",
 			"settings":
 			{
@@ -871,6 +918,7 @@
 	],
 	"file_history":
 	[
+		"/media/felipe/Geral/MaratonUSP/2017 Spring Waterloo ACM Local Contest/b.cpp",
 		"/media/felipe/Geral/MaratonUSP/ToDo/d.cpp",
 		"/media/felipe/Geral/MaratonUSP/ToDo/c.cpp",
 		"/media/felipe/Geral/MaratonUSP/ToDo/b.cpp",
@@ -997,8 +1045,7 @@
 		"/media/felipe/Geral/MaratonUSP/ToDo/oracleAlexandria.cpp",
 		"/media/felipe/Geral/MaratonUSP/ToDo/riemannStrikes.cpp",
 		"/media/felipe/Geral/MaratonUSP/ToDo/helpRiemann.cpp",
-		"/media/felipe/Geral/MaratonUSP/ToDo/snpmqudm2.cpp",
-		"/media/felipe/Geral/MaratonUSP/ToDo/gincana.cpp"
+		"/media/felipe/Geral/MaratonUSP/ToDo/snpmqudm2.cpp"
 	],
 	"find":
 	{
@@ -1016,6 +1063,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"dbg",
 			"ll",
 			", ",
 			"}\n",
@@ -1053,16 +1101,159 @@
 	"groups":
 	[
 		{
-			"sheets":
-			[
-			]
-		},
-		{
-			"selected": 1,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
+					"file": "2017 Spring Waterloo ACM Local Contest/a.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1265,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								37,
+								37
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "2017 Spring Waterloo ACM Local Contest/c.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 675,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "2017 Spring Waterloo ACM Local Contest/e.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1306,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1306,
+								1306
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 390.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "2017 Spring Waterloo ACM Local Contest/e2.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1316,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								819,
+								819
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 325.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "2017 Spring Waterloo ACM Local Contest/d.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1193,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								37,
+								37
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 5,
 					"file": "template.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1086,11 +1277,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 6,
 					"file": "Caderno/Data structs/unionFind.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1115,11 +1306,11 @@
 						"translation.y": 546.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 7,
 					"file": "Codforces/xorFavoriteNumber.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1144,11 +1335,11 @@
 						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 8,
 					"file": "Spoj/dquery.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1173,11 +1364,11 @@
 						"translation.y": 507.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 9,
 					"file": "Caderno/Data structs/SQRTdecomposition.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1202,11 +1393,11 @@
 						"translation.y": 1262.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 10,
 					"file": "Caderno/Computational Math/gameTheory.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1231,11 +1422,11 @@
 						"translation.y": 288.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 11,
 					"file": "Caderno/Misc/ternarySearch.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1259,11 +1450,11 @@
 						"translation.y": 273.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 12,
 					"file": "Caderno/Computational Math/diophantine.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1288,11 +1479,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 13,
 					"file": "Caderno/Graphs/bellmanFord.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1317,11 +1508,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 19,
+					"stack_index": 24,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 14,
 					"file": "Caderno/Computational Math/eulerTotient.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1347,11 +1538,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 15,
 					"file": "Caderno/Computational Math/fastExp.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1376,11 +1567,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 16,
 					"file": "Caderno/Data structs/tries.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1405,11 +1596,11 @@
 						"translation.y": 30.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 17,
 					"file": "Caderno/Data structs/trie4XOR.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1434,11 +1625,11 @@
 						"translation.y": 445.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 15,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 18,
 					"file": "Codforces/sausageMaximization.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1463,11 +1654,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 14,
+					"buffer": 19,
 					"file": "Codforces/vasilyMultiset.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1492,11 +1683,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 20,
 					"file": "Caderno/Graphs/Dijkstra.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1521,11 +1712,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 21,
 					"file": "Caderno/Graphs/lca.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1550,11 +1741,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 28,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 22,
 					"file": "Caderno/Misc/lis.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1579,11 +1770,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 25,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 23,
 					"file": "Caderno/Misc/lcs.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1609,11 +1800,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
+					"buffer": 24,
 					"file": "Caderno/Misc/invCount.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1638,11 +1829,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 25,
+					"stack_index": 30,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
+					"buffer": 25,
 					"file": "Caderno/Computational Math/euclides.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1666,11 +1857,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 26,
+					"stack_index": 31,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
+					"buffer": 26,
 					"file": "Caderno/Misc/knapsack.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1695,11 +1886,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 24,
+					"stack_index": 29,
 					"type": "text"
 				},
 				{
-					"buffer": 22,
+					"buffer": 27,
 					"file": "Caderno/Computational Math/primes.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1725,11 +1916,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 27,
 					"type": "text"
 				},
 				{
-					"buffer": 23,
+					"buffer": 28,
 					"file": "Caderno/Data structs/bit.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1753,11 +1944,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 24,
+					"buffer": 29,
 					"file": "Caderno/Misc/bitOperators.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1782,11 +1973,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 25,
+					"buffer": 30,
 					"file": "Caderno/Data structs/segTree.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1811,11 +2002,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 26,
+					"buffer": 31,
 					"file": "Caderno/Data structs/lazySeg.cpp",
 					"semi_transient": false,
 					"settings":
@@ -1840,7 +2031,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 26,
 					"type": "text"
 				}
 			]
@@ -1874,7 +2065,7 @@
 		"cols":
 		[
 			0.0,
-			0.532718894009,
+			0.616589861751,
 			1.0
 		],
 		"rows":
