@@ -1,4 +1,4 @@
-// codeforces.com/contest/1132/problem/A
+// codeforces.com/contest/1136/problem/B
 
 #include "bits/stdc++.h"
 using namespace std;
@@ -29,9 +29,14 @@ typedef long double ld;
 int main(){
 	fastio
 
-	int a, b, c, d;
-	cin >> a >> b >> c >> d;
+	int n, k;
+	cin >> n >> k;
 
-	if (a == d) p(1);
-	else p(0);
+	int ans = 0;
+	ans += n;
+	ans += n;
+	ans += n;
+	if (!(k == 1 || k == n)) ans += min(k-1, n-k);
+
+	cout << ans << endl;
 }
