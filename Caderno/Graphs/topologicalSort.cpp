@@ -1,6 +1,6 @@
 // TOPOLOGICAL SORT
 // Solves a graph with certain order on its vertices. Uses the ideia
-// of steps, you need to solve the predecessor vertice to solve the 
+// of steps, you need to solve the predecessor vertice to solve the
 // actual one.
 
 int n; // Number of vertices
@@ -8,7 +8,7 @@ int m; // Number of edges
 
 vector<int> graph[n+3];
 int order[n+3]; // Inicialize globally for 0's fill
-vector<int> list;
+vector<int> lst;
 
 void topoSort(){
 
@@ -25,29 +25,26 @@ void topoSort(){
 	// frr because graph is indexed by one
 	frr (i, n){
 		if (order[i] == 0)
-			list.pb(i);
+			lst.pb(i);
 	}
 
 	int beg = 0;
 	// BFS style
-	while (list.size() > beg){
-		int t = list[beg];
+	while (lst.size() > beg){
+		int t = lst[beg];
 		beg++;
 
 		for (int i : graph[t]){
-			grau[i]--;
-			if (grau[i] == 0) list.push(i);
+			order[i]--;
+			if (order[i] == 0) lst.pb(i);
 		}
 	}
 
-	if (list.size() < n){
+	if (lst.size() < n){
 		cout << "Impossible" << endl;
 		return;
 	}
 
-	while (!list.empty()){
-		int v = list.top();
-		list.pop();
-		cout << v << endl;
-	}
+	fr(i, n)
+		cout << lst[i] << endl;
 }
