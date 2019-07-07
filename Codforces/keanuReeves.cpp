@@ -1,3 +1,5 @@
+//codeforces.com/contest/1189/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -5,7 +7,7 @@ using namespace std;
 #define fr(i, n) for(int i = 0; i < n; i++)
 #define frr(i, n) for(int i = 1; i <= n; i++)
 
-#define dbg(x) cout << x << " = " << x << endl
+#define dbg(x) cout << #x << " = " << x << endl
 #define all(x)	x.begin(),x.end()
 #define ms(x, i)	memset(x, i, sizeof(x))
 
@@ -26,4 +28,27 @@ typedef long double ld;
 
 int main(){
 	fastio
+
+	int n;
+	cin >> n;
+
+	string s;
+	cin >> s;
+
+	int cnt0 = 0, cnt1 = 0;
+	fr(i, n) {
+		cnt0 += s[i] == '0';
+		cnt1 += s[i] == '1';
+	}
+
+	if (cnt0 != cnt1) {
+		cout << "1" << endl;
+		cout << s << endl;
+		return 0;
+	}
+
+	cout << "2" << endl;
+	cout << s[0] << " ";
+	frr(i, n-1) cout << s[i];
+	cout << endl;
 }

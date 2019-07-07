@@ -1,3 +1,5 @@
+//codeforces.com/contest/1155/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -5,11 +7,11 @@ using namespace std;
 #define fr(i, n) for(int i = 0; i < n; i++)
 #define frr(i, n) for(int i = 1; i <= n; i++)
 
-#define dbg(x) cout << x << " = " << x << endl
+#define dbg(x) cout << #x << " = " << x << endl
 #define all(x)	x.begin(),x.end()
 #define ms(x, i)	memset(x, i, sizeof(x))
 
-#define p(x) cout << #x << endl
+#define p(x) cout << x << endl
 #define pv(x) for (auto u : x) cout << u << " \n"[u == *(x.end()-1)];
 
 #define f first
@@ -26,4 +28,21 @@ typedef long double ld;
 
 int main(){
 	fastio
+
+	int n;
+	cin >> n;
+
+	string s;
+	cin >> s;
+
+	fr(i, n-1) {
+
+		if (s[i] > s[i+1]) {
+			p("YES");
+			cout << i+1 << " " << i+2 << endl;
+			return 0;
+		}
+	}
+
+	p("NO");
 }
