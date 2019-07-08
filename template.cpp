@@ -9,7 +9,7 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define ms(x, i) memset(x, i, sizeof(x))
 
-#define p(x) cout << #x << endl
+#define p(x) cout << x << endl
 #define pv(x) for (auto u : x) cout << u << " "; cout << "\n";
 
 #define f first
