@@ -16,7 +16,6 @@ using namespace std;
 #define s second
 
 #define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-const int INF = 0x3f3f3f3f;
 
 typedef long long int ll;
 typedef long double ld;
@@ -24,6 +23,9 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
+
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
 	fastio

@@ -28,18 +28,15 @@ ll t;
 matrix operator*(matrix& a, matrix& b){
 
 	matrix aux; aux.resize(t);
-	
-	for (int i = 0; i < t; i++)
+
+    for (int i = 0; i < t; i++)
 		aux[i].resize(t);
-	
+
 	for (int i = 0; i < t; i++){
 		for (int j = 0; j < t; j++){
 			aux[i][j]=0ll;
-			for (int k = 0; k < t; k++){
-				aux[i][j] += (a[i][k] * b[k][j])%mod;
-				aux[i][j] += mod;
-				aux[i][j] %= mod;
-			}
+			for (int k = 0; k < t; k++)
+				aux[i][j] = (aux[i][j] + (a[i][k] * b[k][j])%mod )%mod;
 		}
 	}
 	return aux;
@@ -68,6 +65,7 @@ void exp(matrix& a, ll x){
 }
 
 int main(){
+
 	ll n, m, k;
 	cin >> n >> m >> k;
 	t = n;
@@ -75,10 +73,9 @@ int main(){
 	matrix v;
 	fr(i, n){
 		vector<ll> aux;
-		fr(j, n){
-			aux.pb(0);
-			//if (i == j) aux[j] = 1;
-		}
+		fr(j, n)
+			aux.pb(0ll);
+
 		v.pb(aux);
 	}
 
@@ -86,13 +83,23 @@ int main(){
 	fr(i, m){
 		cin >> a >> b;
 		a--; b--;
-		v[b][a] = v[a][b] = 1;
+		v[b][a]++;
+        v[a][b]++;
 	}
 
 	exp(v, k);
 
-	fr(i, v.size()){
-		fr(j, v.size()) cout << v[i][j] << " ";
-		cout << endl;
-	}
+	fr(i, n-1) {
+
+        for (int j = i+1; j < n; j++) {
+
+            ll ans = v[i][j];
+
+            if (ans == 0)
+                cout << "-1" << " \n"[j == n-1];
+            else
+                cout << ans << " \n"[j == n-1];
+        }
+
+    }
 }

@@ -27,6 +27,8 @@ typedef pair<ll,ll> pll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 
+const ll llINF = 0x3f3f3f3f3f3f3f;
+
 // {pedestrian_distance, total_distance}
 pll adj[103][103];
 
@@ -45,20 +47,18 @@ int main(){
         int n, m;
         cin >> n >> m;
 
-        frr(i, n) frr(j, n) adj[i][j] = {INT_MAX, INT_MAX};
+        frr(i, n) frr(j, n) adj[i][j] = {llINF, llINF};
+        frr(i, n) adj[i][i] = {0ll, 0ll};
 
         ll a, b, c, k;
         fr(i, m) {
 
             cin >> a >> b >> c >> k;
 
-            pll aux = {INT_MAX, INT_MAX};
+            pll aux = {llINF, llINF};
 
-            if (k == 1ll) {
+            if (k == 1ll) 
                 aux = {c, c};
-
-                if (adj[a][b].f == 0ll) continue;
-            }
             else
                 aux = {0ll, c};
 
@@ -67,16 +67,16 @@ int main(){
         }
 
         frr(k, n)
-        	frr(i, n)
-        		frr(j, n)
+            frr(i, n)
+                frr(j, n)
                     adj[i][j] = min(adj[i][j], adj[i][k] + adj[k][j]);
 
         int x, y;
         cin >> x >> y;
 
-        if (adj[x][y].s >= INT_MAX || adj[x][y].f >= INT_MAX) {
+        if (adj[x][y].s >= llINF || adj[x][y].f >= llINF) {
             p("-1");
-            return 0;
+            continue;
         }
 
         cout << adj[x][y].f << " " << adj[x][y].s << '\n';
