@@ -19,9 +19,10 @@ typedef long long int ll;
 typedef pair<int,int> pii;
 typedef vector<int> vi;
 
-const ll mod = 1000000007;
+ll mod = 1000000007;
 
 typedef vector< vector<ll> > matrix;
+bool vis[109][109];
 
 ll t;
 
@@ -35,8 +36,10 @@ matrix operator*(matrix& a, matrix& b){
 	for (int i = 0; i < t; i++){
 		for (int j = 0; j < t; j++){
 			aux[i][j]=0ll;
-			for (int k = 0; k < t; k++)
-				aux[i][j] = (aux[i][j] + (a[i][k] * b[k][j])%mod )%mod;
+			for (int k = 0; k < t; k++) {
+
+                aux[i][j] = (aux[i][j] + (a[i][k] * b[k][j])%mod )%mod;
+            }
 		}
 	}
 	return aux;
@@ -71,6 +74,8 @@ int main(){
 	t = n;
 
 	matrix v;
+    matrix w;
+
 	fr(i, n){
 		vector<ll> aux;
 		fr(j, n)
@@ -79,15 +84,28 @@ int main(){
 		v.pb(aux);
 	}
 
+    fr(i, n){
+		vector<ll> aux;
+		fr(j, n)
+			aux.pb(0ll);
+
+		w.pb(aux);
+	}
+
 	ll a, b;
 	fr(i, m){
 		cin >> a >> b;
 		a--; b--;
 		v[b][a]++;
         v[a][b]++;
+
+        w[b][a]++;
+        w[a][b]++;
 	}
 
 	exp(v, k);
+    mod = 1000000009;
+    exp(w, k);
 
 	fr(i, n-1) {
 
@@ -95,7 +113,7 @@ int main(){
 
             ll ans = v[i][j];
 
-            if (ans == 0)
+            if (!v[i][j] && !w[i][j])
                 cout << "-1" << " \n"[j == n-1];
             else
                 cout << ans << " \n"[j == n-1];
