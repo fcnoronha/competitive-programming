@@ -1,3 +1,5 @@
+//codeforces.com/gym/100712/attachments
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -9,7 +11,7 @@ using namespace std;
 #define all(x) x.begin(),x.end()
 #define ms(x, i) memset(x, i, sizeof(x))
 
-#define p(x) cout << x << "\n"
+#define p(x) cout << x << endl
 #define pv(x) fr(i, x.size()) cout << x[i] << " \n"[i==x.size()-1]
 
 #define f first
@@ -28,5 +30,39 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
-    fastio
+	fastio
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+
+        int n, s;
+        cin >> n >> s;
+
+        vi c(n);
+        fr(i, n) cin >> c[i];
+
+        sort(all(c));
+        reverse(all(c));
+
+        pii ans = {0, 0};
+        fr(i, (1<<n)) {
+
+            pii aux = {0, 0};
+            fr(j, n)
+                if (i & (1<<j)) {
+                    aux.f++;
+                    aux.s += c[j];
+
+                    if (aux.s >= s) break;
+                }
+
+            if (aux.s < s) continue;
+            ans = max(ans, aux);
+        }
+
+        // dbg(ans.s);
+        p(ans.f);
+    }
 }
