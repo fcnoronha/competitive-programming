@@ -13,28 +13,27 @@ void update(int node, int i, int j, int idx, int val){
 	if (i == j){
 		seg[node] = val;
 		value[idx] = val;
+        return;
 	}
 
-	else {
+	int left = 2*node;
+	int right = 2*node + 1;
+	int mid = (i+j)/2;
 
-		int left = 2*node;
-		int right = 2*node + 1;
-		int mid = (i+j)/2;
+	if (idx <= mid) update(left, i, mid, idx, val);
+	else            update(right, mid+1, j, idx, val);
 
-		if (idx <= mid) update(left, i, mid, idx, val);
-		else 			 update(right, mid+1, j, idx, val);
+	seg[node] = min(seg[right], seg[left]);
 
-		seg[node] = min(seg[right], seg[left]);
-	}
 }
 
 int query(int node, int i, int j, int a, int b){
 	// Return lowest value in [a, b]
 
-	if (a <= i && j <= b) 
+	if (a <= i && j <= b)
 		return seg[node];
 
-	if (i > b || a > j) 
+	if (i > b || a > j)
 		return INT_MAX;
 
 
