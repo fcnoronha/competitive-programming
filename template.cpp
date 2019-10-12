@@ -15,7 +15,7 @@ using namespace std;
 #define f first
 #define s second
 
-#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 
 typedef long long int ll;
 typedef long double ld;
@@ -28,5 +28,5 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
-    fastio
+    fastio;
 }
