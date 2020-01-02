@@ -34,29 +34,22 @@ struct edge{
 int dist[1001], dist2[1001];
 
 vi g[1009];
-int is_in[1009], vis[1009];
+int vis[1009];
 
-bool dfs(int v) {
+void dfs(int v) {
 
-	if (vis[v]) return is_in[v];
+	if (vis[v]) return;
 	vis[v] = 1;
 	
 	for (auto u: g[v]) 
-		is_in[v] |= dfs(u);
-	
-	return is_in[v];
+		dfs(u);
 }
 
 void bf(int root, int nv, int ne){
 
 	ms(dist, INF);
-	ms(is_in, 0);
 	ms(vis, 0);
 	
-	dist[root] = 0;
-	
-	vi prt(nv, 0);
-
 	for (int i = 1; i < nv; i++){
 		for (int j = 0; j < ne; j++){
 			int u = e[j].u;
@@ -69,34 +62,30 @@ void bf(int root, int nv, int ne){
 	}
 
 	int x = 0;
-	fr(i, nv) dist2[i] = dist[i];
 	for (int j = 0; j < ne; j++){
 		int u = e[j].u;
 		int v = e[j].v;
 		int w = e[j].w;
 
-		if (dist2[u] + w < dist2[v])
-			dist2[v] = dist2[u] + w;
+		if (dist[u] + w < dist[v]) {
+			x = 1;
+			dist[v] = dist[u]+w;
+			dfs(u);
+		}
 	}
-
-
-
-	fr(i, nv) {
-		if (dist[i] <= dist2[i]) continue;
-		x = 1;
-		dbg(i);
-		is_in[i] = 1;
-	} 
 
 	if (!x)	{
 		p(impossible);
 		return;
 	}
 
-	fr(i, nv) dfs(i);
+	x = 0;
 	fr(i, nv) 
-		if (is_in[i])
-			cout << i << " ";
+		if (vis[i]) {
+			if (x) cout << " ";
+			else x = 1;
+			cout << i;
+		}
 	cout << endl;
 }
 
@@ -113,7 +102,7 @@ int main(){
 		fr(i, n+2) g[i].clear();
 
 		fr(i, m) {
-			cin >> e[i].u >> e[i].v >> e[i].w;
+			cin >> e[i].v >> e[i].u >> e[i].w;
 			g[e[i].u].pb(e[i].v);
 		}
 		
