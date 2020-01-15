@@ -1,91 +1,47 @@
-// LCA - LOWEST COMMON ANCESTOR
-
-// O(n*logn) pre-precessing , O(logn) queries
-
-// First, we have to find the parent of every node
-
-#include<bits/stdc++.h>
-using namespace std;
-
-#define MAXN 10010 // Nodes - TO BE DEFINED
-#define MAXL 50 // Log2(maxn) - 50 should do the trick
-
-vector<int> adj[MAXN]; // Adj vector
-int parent[MAXN];
-int lvl[MAXN];
-int anc[MAXN][MAXL]; // DP for lca
 
 /*
-	anc[i][j] == (2^j)-th ancestor of i
-	anc[i][0] == parent[i]
-	anc[i][j] == anc[anc[i][j-1]][j-1]
+
+    LOWEST COMMON ANCESTOR
+    O(nlogn) preprocess
+    O(logn) query
+
 */
 
-void dfs(int u){
 
-	for (auto v : adj[u]){
+#define maxn 1000
+#define maxl 25 // ceil(log2(n))
 
-		if (lvl[v] != -1) continue;
+int timer;
+int tin[maxn], tout[maxn], up[maxn][maxl];
+vi adj[maxn]; // graph rep
 
-		parent[v] = u; // Setting parent
-		lvl[v] = lvl[u] + 1;
-		dfs(v);
-	}
+void dfs(int v, int p) {
+    tin[v] = ++timer;
+    up[v][0] = p;
+    for (int i = 1; i < maxl; ++i)
+        up[v][i] = up[up[v][i-1]][i-1];
+
+    for (int u : adj[v]) 
+        if (u != p)
+            dfs(u, v);
+    
+    tout[v] = ++timer;
 }
 
-int lca(int u, int v){
-
-	// Return vextex that is lca of U and V
-
-	if (lvl[u] < lvl[v]) swap(u, v);
-
-	// Make lvl of U gets equal the lvl of V
-	for (int i = MAXL-1; i >= 0; i--)
-		if (lvl[u] - (1 << i) >= lvl[v])
-			u = anc[u][i];
-
-	if (u == v) return v;
-
-	// We go up as maximum as possible without them
-	// beeing equal
-	for (int i = MAXL-1; i >= 0; i--)
-		if (anc[u][i] != -1 && anc[u][i] != anc[v][i]){
-			u = anc[u][i];
-			v = anc[v][i];
-		}
-
-	return anc[u][0];
+bool is_ancestor(int u, int v) {
+    return tin[u] <= tin[v] && tout[u] >= tout[v];
 }
 
-int main(){
+int lca(int u, int v) {
+    if (is_ancestor(u, v)) return u;
+    if (is_ancestor(v, u)) return v;
+    for (int i = maxl-1; i >= 0; --i) 
+        if (!is_ancestor(up[u][i], v))
+            u = up[u][i];
+    return up[u][0];
+}
 
-	// Inicitialize lvl array
-	for(int i = 0; i < MAXN; i++)
-		lvl[i] = -1;
+int main() {
 
-	int root = 1; // TO BE DEFINED
-	lvl[root] = 0;
-	parent[root] = -1;
-
-	dfs(root);
-
-	// Initializing DP matrix
-	for (int i = 0; i < MAXN; i++)
-		for (int j = 0; j < MAXL; j++)
-			anc[i][j] = -1;
-	
-	int N; // Actual number of vertices - TO BE DEFINED
-	// Defining parents
-	for (int i = root; i <= N; i++)
-		anc[i][0] = parent[i];
-
-	// Calculating DP
-	for (int j = 1; j < MAXL; j++)
-		for (int i = root; i <= N; i++)
-			if (anc[i][j-1] != -1)
-				anc[i][j] = anc[anc[i][j-1]][j-1];
-
-	// Calling it
-	int ans = lca(u, v);
-
+    dfs(root, root); // init
 }
