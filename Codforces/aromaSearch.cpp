@@ -47,7 +47,8 @@ int main(){
     vector<pll> pts;
     pts.pb(x);
     
-    while (1) {
+    long long LIMIT = (1LL << 62) - 1;
+    while ((LIMIT - b.f) / a.f >= pts.back().f && (LIMIT - b.s) / a.s >= pts.back().s) {
 
         pll novo;
         novo.f = a.f*x.f;
@@ -63,6 +64,9 @@ int main(){
         pts.pb(novo);
         x = novo;
     }
+
+    assert(pts[pts.size()-1].f >= 0);
+    assert(pts[pts.size()-1].s >= 0);
 
     // for (auto u: pts) dbg(u.f ), dbg(u.s);
 
@@ -80,24 +84,24 @@ int main(){
             
             cnt++;
 
-            if (l >= 0 && r < pts.size()) {
-                
-                if (dist(pts[l], pts[l+1]) < dist(pts[r], pts[r-1])) {
-                    aux += dist(pts[l], pts[l+1]);
-                    l--;
-                }
-                else {
-                    aux += dist(pts[r], pts[r-1]);
-                    r++;
-                }
-            }
-
-            else if (l >= 0) {
+            if (l >= 0) {
                 aux += dist(pts[l], pts[l+1]);
                 l--;
             }
 
-            else if (r < pts.size()) {
+            else 
+                break;
+        }
+
+        ans = max(ans, cnt);
+
+        cnt = 0;
+        aux = dist(ori, s);
+        while (aux <= t) {
+            
+            cnt++;
+
+            if (r < pts.size()) {
                 aux += dist(pts[r], pts[r-1]);
                 r++;
             }   
