@@ -109,6 +109,20 @@ point closestToLineSegment(point p, point a, point b) {
     return a + ((b-a)*u);
 }
 
+// distance of point p to a-b
+double distPointLine(point p, point a, point b) {
+   
+    // ax + by + c = 0
+    double ac = (a.y - b.y);
+    double bc = (b.x - a.x);
+    double cc = (a.x * b.y) - (b.x*a.y);
+
+    double dist = abs( ac*p.x + bc*p.y + cc);
+    dist /= sqrt(ac*ac + bc*bc);
+    
+    return dist;
+}
+
 //works for int coordinates
 bool polarCmp(point a, point b) {
     if (b.y*a.y > 0) return cross(a, b) > 0;
