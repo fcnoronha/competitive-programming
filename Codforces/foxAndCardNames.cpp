@@ -1,3 +1,5 @@
+//codeforces.com/problemset/problem/388/C
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,37 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
     fastio;
+
+    ll n, s1 = 0, s2 = 0;
+    vl aux;
+
+    cin >> n;
+    fr(i, n) {
+
+        ll k, x;
+        cin >> k;
+
+        fr(j, k/2) {
+            cin >> x;
+            s1 += x;
+        } 
+
+        if (k%2) {
+            cin >> x;
+            aux.pb(x);
+        }
+
+        fr(j, k/2) {
+            cin >> x;
+            s2 += x;
+        }
+    }
+
+    sort(all(aux));
+    reverse(all(aux));
+
+    for (int i = 0; i < aux.size(); i += 2) s1 += aux[i];
+    for (int i = 1; i < aux.size(); i += 2) s2 += aux[i];
+
+    cout << s1 << " " << s2 << endl;
 }

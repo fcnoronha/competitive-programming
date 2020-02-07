@@ -1,7 +1,4 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-// Tarjan
+// TARJAN
 // Finds strongly connected components (SCC) in a directed graph
 // O(V + E)
 
@@ -48,5 +45,4 @@ void find_sccs() {
     for (int i = 0; i < maxn; i++)
     	if (dfs_num[i] == -1)
     		tarjan(i);
-
 }

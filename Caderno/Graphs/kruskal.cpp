@@ -1,28 +1,22 @@
-// Minimum spanning tree. Define um suconjunto de arestas que conectam todos os 
-// vertices de um grafo, com peso minimo. O(n*logn + n)
+// KRUSKAL - MST
+// O(n*logn + n)
 
-typedef struct aresta{
+typedef struct edge {
     int dis;
     int u, v;
-}t_aresta;
+} t_edge;
 
-// Usado na ordenaçao
-bool comp(t_aresta a, t_aresta b){ 
+bool comp(t_edge a, t_edge b){ 
 	return a.dis < b.dis; 
 }
 
 #define MAXN 50500 // vertices
-#define MAXM 200200 // arestas
+#define MAXM 200200 // edges
 
 int n, m; 
-t_aresta aresta[MAXM];
-
-// para o union find
+t_edge aresta[MAXM], mst[MAXM];
 int id[MAXN];
 int sz[MAXN];
-
-// a árvore
-t_aresta mst[MAXM];
 
 int find(int x){
     if(id[x] == x) return x;
@@ -47,24 +41,17 @@ int main(){
     for (int i = 0; i < m; i++)
         cin >> aresta[i].u >> aresta[i].v >> aresta[i].dis;
         
-    // inicializar os representantes para o union-find
     for (int i = 0; i < n; i++) id[i] = i;
-    
-    // Ordenar as arestas, menor peso vai ficar em primeiro
     sort(aresta, aresta+m, comp);
     
     int size = 0;
     for(int i = 0; i < m; i++){
-
-        // Se estiverem em componentes distintas, ou seja, ainda nao foram conectadas
         if (find(aresta[i].u) != find(aresta[i].v) ){
-            join(aresta[i].u, aresta[i].v);  
-            size++;          
-            mst[size] = aresta[i];
+            join(aresta[i].u, aresta[i].v);           
+            mst[size++] = aresta[i];
         }        
     }
-    
-    // imprimir a MST
-    for(int i = 0; i <= n; i++) 	
+
+    for(int i = 0; i < size; i++) 	
     	cout << mst[i].u << " " << mst[i].v << " " << mst[i].dis << endl;
 }

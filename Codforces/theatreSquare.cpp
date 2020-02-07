@@ -1,3 +1,5 @@
+//codeforces.com/contest/1/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,12 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
     fastio;
+
+    ll n, m, a;
+    cin >> n >> m >> a;
+
+    n = (n+a-1)/a;
+    m = (m+a-1)/a;
+
+    cout << n*m << endl;
 }

@@ -1,6 +1,3 @@
-#include<bits/stdc++.h>
-using namespace std;
-
 // Tarjan algorithm to find bridges.
 // O(V+E)
 

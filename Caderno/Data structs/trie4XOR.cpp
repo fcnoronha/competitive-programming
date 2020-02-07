@@ -1,7 +1,5 @@
 // Usage of trie to do XOR stuff
 
-// Solution used to solve: codeforces.com/problemset/problem/706/D
-
 /*
 	At this problem the user can add one number to the set, with + op;
 	It also can delete one number from the set, whith - op;
@@ -10,49 +8,32 @@
 	among all elements in the set.
 */
 
-#include "bits/stdc++.h"
-using namespace std;
+#define maxn 7000009 // N * log2(max_val)
 
-#define fr(i, n) for(int i = 0; i < n; i++)
-#define frr(i, n) for(int i = 1; i <= n; i++)
-
-#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-
-#define MAXN 7000009 
-
-int trie[MAXN][2];
-int amt[MAXN];
-int val[MAXN];
-
+int trie[maxn][2], amt[maxn], val[maxn];
 int cnt = 1; 
 
-void add(string str, int idx, int node, int v){
+void add(string &str, int idx, int node, int v) {
 
 	// Add str (binary rep) to the tree, and increment 1 in each node
 	// Store value V of that binary rep in the last node
-
 	amt[node]++;
-
-	if (str.length() == idx){
+	if (idx == str.length()) {
 		val[node] = v;
 		return;
 	}
-
 	int &lidx = trie[node][ str[idx]-'0' ];
-	if (lidx == -1){
-
+	if (lidx == -1) {
 		lidx = cnt++;
-
 		trie[lidx][0] = trie[lidx][1] = -1;
 	}
 
 	add(str, idx+1, lidx, v);
 }
 
-int search(string str, int idx, int node){
+int search(string str, int idx, int node) {
 
 	// Return biggest possible value for me to do an XOR operation
-
 	if (idx == str.length())
 		return val[node];
 	
@@ -61,19 +42,17 @@ int search(string str, int idx, int node){
 	if (amt[lidx] > 0)
 		return search(str, idx+1, lidx);
 
-	aux++; aux %= 2;
-
+	aux = (aux+1)%2;
 	return search(str, idx+1, trie[node][aux]);
 }
 
-void del(string str, int idx, int node){
+void del(string str, int idx, int node) {
 
 	// Descrease 1 in each node of the value represented by str
 	amt[node]--;
 
 	if (idx == str.length())
 		return;
-
 	int &lidx = trie[node][ str[idx]-'0' ];
 	del(str, idx+1, lidx);
 }
@@ -102,12 +81,8 @@ int main(){
 		bitset<30> bt(x);
 		string str = bt.to_string();
 
-		if (op == '+')
-			add(str, 0, 0, x);
-		
-		else if (op == '-')
-			del(str, 0, 0);
-
+		if (op == '+') add(str, 0, 0, x);
+		else if (op == '-') del(str, 0, 0);
 		else {
 			int s = search(str, 0, 0);
 			cout << (s^x) << endl;

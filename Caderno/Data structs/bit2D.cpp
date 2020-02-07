@@ -1,13 +1,11 @@
 /*
-	
 	BINARY INDEXED TREE - 2D
 	
- To initialize it, just update every entry node
+To initialize it, just update every entry node
 */
 
 #define MAXN 10000
 
-// Global array
 int bit[MAXN][MAXN];
 
 // Return the sum of the area delimited by x and y

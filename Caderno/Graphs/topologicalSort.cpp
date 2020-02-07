@@ -1,50 +1,36 @@
 // TOPOLOGICAL SORT
-// Solves a graph with certain order on its vertices. Uses the ideia
-// of steps, you need to solve the predecessor vertice to solve the
-// actual one.
 
-int n; // Number of vertices
-int m; // Number of edges
+#define maxn 1000
 
-vector<int> graph[n+3];
-int order[n+3]; // Inicialize globally for 0's fill
-vector<int> lst;
+vi adj[maxn], order; 
+int degree[maxn];
 
 void topoSort(){
 
 	// Receiving graph
 	cin >> n >> m;
-	fr (i, m){
+	fr(i, m){
 		int u, v;
 		cin >> u >> v;
-
-		order[v]++; // 'u' must be executted before 'v'
+		degree[v]++; // 'u' must be executted before 'v'
 		graph[u].pb(v);
 	}
 
-	// frr because graph is indexed by one
-	frr (i, n){
-		if (order[i] == 0)
-			lst.pb(i);
-	}
-
+	frr(i, n) if (degree[i] == 0) order.pb(i);
+	
 	int beg = 0;
-	// BFS style
-	while (lst.size() > beg){
-		int t = lst[beg];
-		beg++;
-
-		for (int i : graph[t]){
-			order[i]--;
-			if (order[i] == 0) lst.pb(i);
+	while ((int)order.size() > beg){
+		int u = order[beg++];
+		for (int v: adj[u]){
+			degree[v]--;
+			if (degree[v] == 0) order.pb(v);
 		}
 	}
 
-	if (lst.size() < n){
+	if (order.size() < n) {
 		cout << "Impossible" << endl;
 		return;
 	}
 
-	fr(i, n)
-		cout << lst[i] << endl;
+	for (auto v: order) cout << v << endl;
 }

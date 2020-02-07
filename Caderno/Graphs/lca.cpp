@@ -1,12 +1,8 @@
-
 /*
-
     LOWEST COMMON ANCESTOR
     O(nlogn) preprocess
     O(logn) query
-
 */
-
 
 #define maxn 1000
 #define maxl 25 // ceil(log2(n))
@@ -15,7 +11,7 @@ int timer;
 int tin[maxn], tout[maxn], up[maxn][maxl];
 vi adj[maxn]; // graph rep
 
-void dfs(int v, int p) {
+void dfs_lca(int v, int p) {
     tin[v] = ++timer;
     up[v][0] = p;
     for (int i = 1; i < maxl; ++i)
@@ -23,7 +19,7 @@ void dfs(int v, int p) {
 
     for (int u : adj[v]) 
         if (u != p)
-            dfs(u, v);
+            dfs_lca(u, v);
     
     tout[v] = ++timer;
 }
@@ -42,6 +38,5 @@ int lca(int u, int v) {
 }
 
 int main() {
-
-    dfs(root, root); // init
+    dfs_lca(root, root); // init
 }

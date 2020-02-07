@@ -1,9 +1,6 @@
-
 /*
-
     2 SAT
     O(n + m) - #variables + #clauses
-
 */
 
 #define maxn 112345 // 2*(#MAXelements)

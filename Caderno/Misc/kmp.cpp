@@ -1,30 +1,17 @@
-//Reconhecendo padroes em texto e algoritimo de KMP
-
 /*
-Definindo um padrao p e um texto t:
-p = {p0,p1,..,pm}
-t = {t0,t2,...,tn}
-Ideia de dar um "CTLR+F" em t para achar p.
+KMP - O(n+m)
 
-Algoritimo naive = O(n*m), tetando encaixar p em todas as posiçoes de t.
-
---------
-
-Usando KMP reduzimos a complexidade para O(n+m)
-
-Para isso, definimos um vetor lps[i] = maior prefixo em p[0...i] que tambem e sufixo em p[0...i].
+Vetor lps[i] = maior prefixo em p[0...i] que tambem e sufixo em p[0...i].
 Por exemplo:        p = A A A A
 			      lps = 0 1 2 3
 
 			      	p = A B A C A B A
 			      lps = 0 0 2 0 1 2 3
-
 */
 
-void LPS(char[] pat, int M, int[] lps){
+void LPS(string pat, int M, int[] lps){
 
     int len = 0; // Tamanho do ultimo prefixo sufixo
-
     lps[0] = 0; // base
 
     int i = 1;
@@ -45,28 +32,23 @@ void LPS(char[] pat, int M, int[] lps){
     }
 }
 
+void KMP(string pat, string txt){
+    int M = (int)pat.size();
+    int N = (int)txt.size();
 
-void KMP(char[] pat, char[] txt){
-    int M = strlen(pat);
-    int N = strlen(txt);
-
-    int lps[M]; // Vetor para armazenar lps
-
+    int lps[M]; 
     LPS(pat, M, lps);
 
-    int i = 0; // index para txt[]
-    int j = 0; // index para pat[]
+    int i = 0; // for txt
+    int j = 0; // for pat
     while (i < N) {
-        if (pat[j] == txt[i]) {
-            j++;
-            i++;
-        }
+        if (pat[j] == txt[i]) 
+            j++, i++;
+        
         if (j == M) {
             printf("Achei um padrao aq %d ", i - j);
             j = lps[j - 1];
         }
-
-        // mismatch
         else if (i < N && pat[j] != txt[i]) {
             if (j != 0)
                 j = lps[j - 1];
@@ -75,6 +57,3 @@ void KMP(char[] pat, char[] txt){
         }
     }
 }
-
-//www.youtube.com/watch?v=btr95inWBaQ -> video aula
-//codeforces.com/group/eqgxxTNwgd/contest/101245 -> Lista ex

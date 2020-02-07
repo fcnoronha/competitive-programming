@@ -28,5 +28,33 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main(){
-    fastio;
+    //fastio;
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+
+        cout << "5 1 5 6" << endl;
+
+        string md;
+        while (cin >> md) {
+
+            if (md == "GAME") break;
+
+            int r1, c1, r2, c2;
+            cin >> r1 >> c1 >> r2 >> c2;
+
+            r1 = min(4, r1);
+            r2 = min(4, r2);
+
+            int nr1 = 4-r1+1;
+            int nr2 = 4-r2+1;
+                
+            int nc2 = 6-c1+1;
+            int nc1 = 6-c2+1;
+
+            cout << min(nr1, nr2) << " " << min(nc1, nc2) << " " << max(nr1, nr2) << " " << max(nc1, nc2) << endl;
+        }
+    }
 }
