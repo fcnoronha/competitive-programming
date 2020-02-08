@@ -1,5 +1,3 @@
-// https://www.spoj.com/problems/RPLN/
-
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -18,53 +16,40 @@ typedef pair<int,int> pii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
-ll val[100009];
-ll tree[400009];
-ll rg[400009], lf[400009];
+#define maxn 100009
 
-void build(int node, int bleft, int bright){
-	rg[node] = bright;
-	lf[node] = bleft;
+ll seg[maxn<<1];
+int n, q;
 
-	if (bleft == bright)
-		tree[node] = val[bright];
+void build() {
+	for (int i = n-1; i > 0; i--)
+		seg[i] = min(seg[i<<1], seg[i<<1|1]);
+}
 
-	else{
-		int mid = (bleft+bright)/2;
-
-		build(2*node, bleft, mid);
-		build(2*node+1, mid+1, bright);
-
-		tree[node] = min(tree[2*node], tree[2*node+1]);
+ll query(int l, int r) {
+	ll ans = INT_MAX;
+	for (l += n, r += n; l<r; l >>= 1, r >>= 1) {
+		if (l&1) ans = min(ans, seg[l++]);
+		if (r&1) ans = min(ans, seg[--r]); 
 	}
+	return ans;
 }
-
-ll query(int node, int qleft, int qright){
-	if (rg[node] < qleft || qright < lf[node]) return LLONG_MAX;
-
-	if (lf[node] >= qleft && rg[node] <= qright) return tree[node];
-
-	return min(query(2*node, qleft, qright), query(2*node+1, qleft, qright));
-}
-
 
 int main(){
 	int t;
 	cin >> t;
 
 	frr(i, t){
-		int n, q;
 		cin >> n >> q; 
-		fr(i, n) cin >> val[i];
+		fr(i, n) cin >> seg[i+n];
 
-		fill(tree, tree+(n*4), LLONG_MAX);
-		build(1, 0, n-1);
+		build();
 
 		cout << "Scenario #" << i << ":" << endl;
 		while(q--){
 			int a, b;
 			cin >> a >> b;
-			cout << query(1, a-1, b-1) << endl;
+			cout << query(a-1, b) << endl;
 		}
 	}
 }
