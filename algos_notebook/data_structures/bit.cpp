@@ -21,16 +21,16 @@ void build(){
 }
 
 // [1, i] sum query
-int query(int i){
+int query(int p){
 	int sum = 0;
-    for (; i > 0; i -= i&-i) // Subtract last significant bit
-    	sum += bit[i];
+    for (; p > 0; p -= p&-p) // Subtract last significant bit
+    	sum += bit[p];
     return sum;
 }
 
 // Sum x on position i
-void update(int x, int i){
-	for (; i <= MAXN; i += i&-i)
-		bit[i] += x;
+void update(int p, int val){
+	for (; p <= MAXN; p += p&-p)
+		bit[p] += val;
 }
 
