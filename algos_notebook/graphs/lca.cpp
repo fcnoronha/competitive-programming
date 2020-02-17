@@ -2,6 +2,7 @@
     LOWEST COMMON ANCESTOR
     O(nlogn) preprocess
     O(logn) query
+    1-indexed
 */
 
 #define maxn 1000
