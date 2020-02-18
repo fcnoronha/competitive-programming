@@ -51,18 +51,16 @@ bool bfs(int t) {
 }
  
 ll dfs(int u, ll pushed, int t) {
-    if (pushed == 0)
-        return 0ll;
-    if (u == t)
-        return pushed;
-    for (int& cid = ptr[u]; cid < adj[u].size(); cid++) {
+    if (!pushed) return 0ll;
+    if (u == t) return pushed;
+    for (int &cid = ptr[u]; cid < adj[u].size(); cid++) {
         int id = adj[u][cid];
         int v = edges[id].v;
-        if (level[u] + 1 != level[v] || edges[id].cap - edges[id].flow < 1)
+        ll lft = edges[id].cap - edges[id].flow;
+        if (level[u] + 1 != level[v] || lft < 1)
             continue;
-        ll tr = dfs(v, min(pushed, edges[id].cap - edges[id].flow), t);
-        if (tr == 0)
-            continue;
+        ll tr = dfs(v, min(pushed, lft), t);
+        if (!tr) continue;
         edges[id].flow += tr;
         edges[id^1].flow -= tr;
         return tr;
