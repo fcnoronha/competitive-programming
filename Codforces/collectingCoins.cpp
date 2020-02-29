@@ -1,3 +1,5 @@
+//codeforces.com/contest/1294/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,16 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
     fastio;
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int a, b, c, n;
+        cin >> a >> b >> c >> n;
+        int mx = max({a,b,c});
+        int d = (mx-a) + (mx-b) + (mx-c);
+        n -= d;
+        if (n < 0 || n%3) p("NO");
+        else p("YES");
+    }
 }

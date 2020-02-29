@@ -1,3 +1,5 @@
+//codeforces.com/contest/1315/problem/B
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,33 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
     fastio;
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+
+        ll a, b, p;
+        cin >> a >> b >> p;
+        string s;
+        cin >> s;
+        ll n = s.size();
+        int ans = n-1;
+        vl amt(n+1, 0);
+        n--;
+        for (int i = n-1; i >= 0; i--) {
+            if (i == n-1) {
+                amt[i] = (s[i]=='A')*a + (s[i]=='B')*b;
+                if (amt[i] > p) break;
+                ans = i;
+                continue;
+            }
+            amt[i] = amt[i+1];
+            if (s[i] != s[i+1]) 
+                amt[i] += (s[i]=='A')*a + (s[i]=='B')*b;
+            if (amt[i] > p) break;
+            ans = i;
+        }
+        p(ans+1);
+    }
 }

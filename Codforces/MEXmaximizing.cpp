@@ -1,3 +1,5 @@
+//codeforces.com/contest/1294/problem/D
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,21 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
     fastio;
+    int q, x;
+    cin >> q >> x;
+    vi amt(x+10, 0);
+    int mex = 0;
+    vi used(400009, 0);
+    while (q--) {
+
+        int aux;
+        cin >> aux;
+        aux %= x;
+        if (aux + x*amt[aux] < 400007) {
+            used[aux + x*amt[aux]] = 1;
+            amt[aux]++;
+            while (used[mex]) mex++;
+        }
+        p(mex);
+    }
 }

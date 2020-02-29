@@ -1,3 +1,5 @@
+//codeforces.com/contest/1315/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -29,4 +31,18 @@ const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
     fastio;
+
+    int t;
+    cin >> t;
+
+    while (t--) {
+        ll a, b, x, y;
+        cin >> a >> b >> x >> y;
+        ll ans = 1;
+        if (x) ans = max(ans, (x)*b);
+        if (y) ans = max(ans, (y)*a);
+        if (x < a-1) ans = max(ans, (a-x-1)*b);
+        if (y < b-1) ans = max(ans, (b-y-1)*a);
+        p(ans);
+    }
 }
