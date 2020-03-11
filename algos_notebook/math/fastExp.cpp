@@ -12,15 +12,15 @@ ll fat(ll x){
 }
 
 // Recursive fastexp
-ll fastexp(ll base, ll exp){
-	if (!exp) return 1;
-	ll ans = fastexp(base, exp/2);
+ll fastexp(ll b, ll e){
+	if (!e) return 1;
+	ll ans = fastexp(b, e/2);
 	ans = (ans*ans)%mod;
-	if (exp%2) ans = (ans*base)%mod;
-	return ans%mod; 
+	if (e%2) ans = (ans*b)%mod;
+	return ans;
 }
 
 // For you to devide a number that is in a modulo(%)
-ll invmod(ll x){
-	return fastexp(x, mod-2);
+ll invmod(ll b){
+	return fastexp(b, mod-2);
 }
