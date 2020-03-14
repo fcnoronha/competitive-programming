@@ -11,5 +11,5 @@ typedef tree< T, null_type,less< T >,rb_tree_tag,tree_order_statistics_node_upda
 
 ordered_set q;
 q.insert(1);
-auto it = q.find_by_order(k) // k-esimo elemento
-auto it = q.oder_by_key(k) // quantos elementos são menores que k
+auto it = q.find_by_order(k) // k-ith element
+int idx = q.oder_by_key(val) // number of elements LESS than val

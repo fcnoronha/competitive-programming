@@ -29,6 +29,8 @@ typedef vector<ll> vl;
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
+int aux[6];
+
 struct minq {
 
     stack< pair<int, pii> > s1, s2;
@@ -40,22 +42,22 @@ struct minq {
     pii get() {
         if (s1.empty()) return s2.top().s;
         if (s2.empty()) return s1.top().s;
-        vi aux;
-        aux.pb(s1.top().s.f);
-        aux.pb(s1.top().s.s);
-        aux.pb(s2.top().s.f);
-        aux.pb(s2.top().s.s);
-        sort(all(aux)); reverse(all(aux));
+        int idx = 0;
+        aux[idx++] = s1.top().s.f;
+        aux[idx++] = s1.top().s.s;
+        aux[idx++] = s2.top().s.f;
+        aux[idx++] = s2.top().s.s;
+        sort(aux, aux+idx); reverse(aux, aux+idx);
         return make_pair(aux[0], aux[1]);
     }
 
     void insert(int val) {
-        vi aux;
-        aux.pb(val);
+        int idx = 0;
         if (!s1.empty()) {
-            aux.pb(s1.top().s.f);
-            aux.pb(s1.top().s.s);
-            sort(all(aux)); reverse(all(aux));
+            aux[idx++] = val;
+            aux[idx++] = s1.top().s.f;
+            aux[idx++] = s1.top().s.s;
+            sort(aux, aux+idx); reverse(aux, aux+idx);
             s1.push({val, {aux[0], aux[1]}});
         }
         else 
@@ -68,11 +70,11 @@ struct minq {
                 int val = s1.top().f;
                 s1.pop();
                 if (!s2.empty()) {
-                    vi aux;
-                    aux.pb(val);
-                    aux.pb(s2.top().s.f);
-                    aux.pb(s2.top().s.s);
-                    sort(all(aux)); reverse(all(aux));
+                    int idx = 0;
+                    aux[idx++] = val;
+                    aux[idx++] = s2.top().s.f;
+                    aux[idx++] = s2.top().s.s;
+                    sort(aux, aux+idx); reverse(aux, aux+idx);
                     s2.push({val, {aux[0], aux[1]}});
                 }
                 else 
