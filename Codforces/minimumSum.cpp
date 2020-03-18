@@ -1,4 +1,4 @@
-//onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1186
+//codeforces.com/contest/120/problem/J
 
 #include "bits/stdc++.h"
 using namespace std;
@@ -30,12 +30,13 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 struct pt {
-    double x, y;
+    ll x, y;
+    int id, k;
 };
 
-int n; 
-double min_dist;
-pair<int, int> best_pair;
+int n;
+ll min_dist2;
+pair<pt, pt> best_pair;
 vector<pt> a, aux;
 
 bool cmp_x(pt &a, pt &b) {
@@ -47,23 +48,27 @@ bool cmp_y(pt &a, pt &b) {
 }
 
 void upd_ans(pt &a, pt &b) {
-    double dist = sqrt((a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y));
-    if (dist < min_dist) 
-        min_dist = dist;
+    if (a.id == b.id) return;
+    ll dist = (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y);
+    if (dist < min_dist2) {
+        min_dist2 = dist;
+        best_pair = {a, b};
+    }
 }
 
 void solve(int l, int r) {
-    if (r - l <= 3) {
+    if (r-l <= 3) {
         for (int i = l; i < r; i++) 
-            for (int j = i + 1; j < r; j++) 
+            for (int j = i+1; j < r; j++)
                 upd_ans(a[i], a[j]);
         sort(a.begin()+l, a.begin()+r, cmp_y);
         return;
     }
 
-    int m = (l+r)>>1;
+    int m = (l+r)/2;
     ll midx = a[m].x;
-    solve(l, m);
+
+    solve(l, m); 
     solve(m, r);
 
     merge(a.begin()+l, a.begin()+m, a.begin()+m, a.begin()+r, aux.begin(), cmp_y);
@@ -71,31 +76,42 @@ void solve(int l, int r) {
 
     int aux_sz = 0;
     for (int i = l; i < r; i++) {
-        if ((a[i].x-midx) < min_dist) {
-            for (int j = aux_sz-1; j >= max(0, aux_sz-7); j--)
+        if ((a[i].x-midx)*(a[i].x-midx) < min_dist2) {
+            for (int j = aux_sz-1; j >= 0 && (a[i].y-aux[j].y)*(a[i].y-aux[j].y) < min_dist2; j--)
                 upd_ans(a[i], aux[j]);
             aux[aux_sz++] = a[i];
         }
     }
 }
 
+ll dx[4] = {1, -1, 1, -1};
+ll dy[4] = {1, 1, -1, -1};
+
 int main() {
 
-    cout << setprecision(4) << fixed;
-    while (cin >> n && n) {
-        
-        a.clear();
-        aux.clear();
-        
-        a.resize(n);
-        aux.resize(n);
-        fr(i, n) cin >> a[i].x >> a[i].y;
-        
-        sort(a.begin(), a.end(), cmp_x);
-        min_dist = 100000000.0;
-        solve(0, n);
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
 
-        if (min_dist >= 10000.0) p("INFINITY");
-        else p(min_dist);
+    cin >> n;
+
+    ll x, y;
+    fr(i, n) {
+        cin >> x >> y;
+        fr(k, 4) 
+            a.pb({x*dx[k], y*dy[k], i+1, k+1});
     }
+
+    n *= 4;
+    sort(all(a), cmp_x);
+    aux.resize(n);
+    min_dist2 = LLONG_MAX;
+    
+    solve(0, n);
+
+    if (best_pair.f.k == 1) best_pair.f.k = 4;
+    else if (best_pair.f.k == 2) best_pair.f.k = 3;
+    else if (best_pair.f.k == 3) best_pair.f.k = 2;
+    else best_pair.f.k = 1;
+
+    cout << best_pair.f.id << " " << best_pair.f.k << " " << best_pair.s.id << " " << best_pair.s.k << '\n';
 }
