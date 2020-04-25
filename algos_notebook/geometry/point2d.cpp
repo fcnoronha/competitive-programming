@@ -3,38 +3,7 @@ using namespace std;
 
 // Point 2D
 
-struct point {
-    double x, y;
-    point() { x = y = 0.0; }
-    point(double _x, double _y) : x(_x), y(_y) {}
-    // return the norm of the point
-    double norm() {
-        return hypot(x, y);
-    }
-    // return the point normalized
-    point normalized() {
-        return point(x,y)*(1.0/norm());
-    }
-    // angle of the vector produced by the point
-    double angle() { return atan2(y, x); }
-
-    bool operator < (point other) const {
-        if (fabs(x - other.x) > EPS) return x < other.x;
-        else return y < other.y;
-    }
-    bool operator == (point other) const {
-        return (fabs(x - other.x) < EPS && (fabs(y - other.y) < EPS));
-    }
-    point operator +(point other) const {
-        return point(x + other.x, y + other.y);
-    }
-    point operator -(point other) const {
-        return point(x - other.x, y - other.y);
-    }
-    point operator *(double k) const {
-        return point(x*k, y*k);
-    }
-};
+typedef pair<long long int, long long int> point;
 
 // distance between two points
 double dist(point p1, point p2) {
@@ -89,26 +58,6 @@ point lineIntersectSeg(point p, point q, point A, point B) {
     return ((p-q)*(a/c)) - ((A-B)*(b/c));
 }
 
-bool parallel(point a, point b) {
-    return fabs(cross(a, b)) < EPS;
-}
-
-bool segIntersects(point a, point b, point p, point q) {
-    if (parallel(a-b, p-q)) {
-        return between(a, p, b) || between(a, q, b)
-            || between(p, a, q) || between(p, b, q);
-    }
-    point i = lineIntersectSeg(a, b, p, q);
-    return between(a, i, b) && between(p, i, q);
-}
-
-point closestToLineSegment(point p, point a, point b) {
-    double u = inner(p-a, b-a) / inner(b-a, b-a);
-    if (u < 0.0) return a;
-    if (u > 1.0) return b;
-    return a + ((b-a)*u);
-}
-
 // distance of point p to a-b
 double distPointLine(point p, point a, point b) {
    
@@ -123,7 +72,7 @@ double distPointLine(point p, point a, point b) {
     return dist;
 }
 
-//works for int coordinates
+// works for int coordinates
 bool polarCmp(point a, point b) {
     if (b.y*a.y > 0) return cross(a, b) > 0;
     else if (b.y == 0 && b.x > 0) return false;
@@ -132,25 +81,20 @@ bool polarCmp(point a, point b) {
 }
 
 bool isRetangle(point p, point q, point r, point s) {
-
     // retangle of the form p ---- q
     //                      |      |
     //                      r ---- s
-
     return (fabs((q-p)*(r-p)) < EPS && fabs((q-s)*(r-s)) < EPS);
 }
 
 bool isSquare(point p, point q, point r, point s) {
-
     // square of the form p - q
     //                    |   |
     //                    r - s
-
     double d1 = dist(p, q);
     double d2 = dist(p, r);
     double d3 = dist(s, q);
     double d4 = dist(s, r);
-
     return (fabs(d1 - d2) < EPS && fabs(d1-d3) < EPS &&
             fabs(d1 - d3) < EPS);
 }
