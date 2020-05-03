@@ -1,10 +1,11 @@
 // Algorithms to check if point is inside polgon
 
 typedef long long int ll;
+typedef pair<ll, ll> pt;
 #define f first
 #define s second
 
-typedef pair<ll, ll> pt;
+// FOR CONVEX POLYGON O(lgn) query
 int sgn(ll val){
     if (val > 0) return 1;
     if (val < 0) return -1;
@@ -67,4 +68,34 @@ bool isInside(pt p, vector<pt> &pol){
     }
     int pos = l;
     return insideT(pol[pos], pol[pos+1], {0,0}, p);
+}
+
+// FOR NON-CONVEX POLYGON O(n)
+ll area(pt a, pt b, pt c) {
+    return (a.f-c.f)*(b.s-c.s)-(a.s-c.s)*(b.f-c.f);
+}
+
+// point is left or colinear with line a-b 
+bool is_left(pt a, pt b, pt p) {
+    return area(a, b, p) >= 0;
+}
+
+// point inside a-b
+bool is_in(pt a, pt b, pt p) {
+    if (p.f < min(a.f, b.f) || p.f > max(a.f, b.f)) return 0;
+    if (p.s < min(a.s, b.s) || p.s > max(a.s, b.s)) return 0;
+    return area(a, b, p) == 0;
+}
+
+bool is_inside(vector<pt> pol, pt p) {
+    int n = pol.size(), c = 0;
+    for (int i = 0; i < n; i++) {
+        int j = (i-1+n)%n;
+        if (is_in(pol[i], pol[j], p)) return 1;
+        if (pol[i].s > p.s && pol[j].s <= p.s)
+            c += is_left(pol[i], pol[j], p);
+        if (pol[j].s > p.s && pol[i].s <= p.s)
+            c += is_left(pol[j], pol[i], p);
+    }
+    return (c%2 == 1);
 }
