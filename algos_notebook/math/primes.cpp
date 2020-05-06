@@ -19,15 +19,12 @@ vector<int> primes;
 vector<int> SPF(maxn);
 
 void seive(int n) {
-
     isPrime[0] = isPrime[1] = false;
-
     for (int i = 2; i < n; i++) {
         if (isPrime[i]) {
             primes.push_back(i);
             SPF[i] = i;
         }
-
         for (int j = 0;
         j < (int)primes.size() &&
         i*primes[j] < n && primes[j] <= SPF[i];
@@ -36,7 +33,6 @@ void seive(int n) {
             SPF[i*primes[j]] = primes[j] ;
         }
     }
-
     // All generated primes will be at primes[]
     // Change types to long long if needed
 }
