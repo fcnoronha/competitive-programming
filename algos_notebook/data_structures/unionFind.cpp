@@ -3,23 +3,20 @@
 
 int id[maxn], sz[maxn];
 
-int find(int p){
+int find(int p) {
     if (id[p] == p) return p;
-    return id[p] = find(id[p]); // Fazendo com que o elemento aponte diretamente para o representate
+    return id[p] = find(id[p]); 
 }
 
-void uni(int p, int q){
-	p = find(p);
-	q = find(q);
-
+void uni(int p, int q) {
+	p = find(p); q = find(q);
 	if (p == q) return;
 	if (sz[p] > sz[q]) swap(p, q);
-
 	id[p] = q;
 	sz[q] += sz[p];
 }
 
-int main() {
-    
-    fr(i, n) id[i] = i, sz[i] = 1;
+void initialize(int n) {
+    for (int i = 1; i <= n; i++)
+		id[i] = i, sz[i] = 1;
 }
