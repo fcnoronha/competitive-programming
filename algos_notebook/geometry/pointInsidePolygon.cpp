@@ -5,7 +5,9 @@ typedef pair<ll, ll> pt;
 #define f first
 #define s second
 
+//////////////////////////////////////
 // FOR CONVEX POLYGON O(lgn) query
+//////////////////////////////////////
 int sgn(ll val){
     if (val > 0) return 1;
     if (val < 0) return -1;
@@ -70,7 +72,9 @@ bool isInside(pt p, vector<pt> &pol){
     return insideT(pol[pos], pol[pos+1], {0,0}, p);
 }
 
+////////////////////////////////////////////
 // FOR NON-CONVEX POLYGON O(n)
+////////////////////////////////////////////
 ll area(pt a, pt b, pt c) {
     return (a.f-c.f)*(b.s-c.s)-(a.s-c.s)*(b.f-c.f);
 }

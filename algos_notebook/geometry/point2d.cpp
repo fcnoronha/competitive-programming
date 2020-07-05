@@ -3,41 +3,32 @@ using namespace std;
 
 // Point 2D
 
-typedef pair<long long int, long long int> point;
+typedef pair<int, int> point;
 
 // distance between two points
 double dist(point p1, point p2) {
     return hypot(p1.x - p2.x, p1.y - p2.y);
 }
 
-// inner product
+// inner/dot product
 double inner(point p1, point p2) {
     return p1.x*p2.x + p1.y*p2.y;
 }
 
-// cross product
+// cross/vectorial product
 double cross(point p1, point p2) {
     return p1.x*p2.y - p1.y*p2.x;
 }
 
-// counter-clocwise test
-bool ccw(point p, point q, point r) {
-    return cross(q-p, r-p) > 0;
+// angle AÔB, in radians
+double angle(point a, point o, point b) {
+    return acos(inner(a-o, b-o) / (dist(o,a)*dist(o,b)));
 }
 
-// three points are collinear
-bool collinear(point p, point q, point r) {
-    return fabs(cross(p-q, r-p)) < EPS;
-}
-
+// rotate plane point is in
 point rotate(point p, double rad) {
     return point(p.x * cos(rad) - p.y * sin(rad),
     p.x * sin(rad) + p.y * cos(rad));
-}
-
-// angle AÔB
-double angle(point a, point o, point b) {
-    return acos(inner(a-o, b-o) / (dist(o,a)*dist(o,b)));
 }
 
 // projection
@@ -72,29 +63,3 @@ double distPointLine(point p, point a, point b) {
     return dist;
 }
 
-// works for int coordinates
-bool polarCmp(point a, point b) {
-    if (b.y*a.y > 0) return cross(a, b) > 0;
-    else if (b.y == 0 && b.x > 0) return false;
-    else if (a.y == 0 && a.x > 0) return true;
-    else return b.y < a.y;
-}
-
-bool isRetangle(point p, point q, point r, point s) {
-    // retangle of the form p ---- q
-    //                      |      |
-    //                      r ---- s
-    return (fabs((q-p)*(r-p)) < EPS && fabs((q-s)*(r-s)) < EPS);
-}
-
-bool isSquare(point p, point q, point r, point s) {
-    // square of the form p - q
-    //                    |   |
-    //                    r - s
-    double d1 = dist(p, q);
-    double d2 = dist(p, r);
-    double d3 = dist(s, q);
-    double d4 = dist(s, r);
-    return (fabs(d1 - d2) < EPS && fabs(d1-d3) < EPS &&
-            fabs(d1 - d3) < EPS);
-}

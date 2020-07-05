@@ -5,8 +5,8 @@ Vetor lps[i] = maior prefixo em p[0...i] que tambem e sufixo em p[0...i].
 Por exemplo:        p = A A A A
 			      lps = 0 1 2 3
 
-			      	p = A B A C A B A
-			      lps = 0 0 2 0 1 2 3
+                    p = AAACAAAAAC 
+        lps = [0, 1, 2, 0, 1, 2, 3, 3, 3, 4] 
 */
 
 void LPS(string pat, int M, int[] lps){
