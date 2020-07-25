@@ -24,6 +24,7 @@ vector<point> ch(vector<point> pt) {
 
     vector<point> h = {pt[0]};
     for (int i = 1; i < n; i++) {
+        // change to '<' if want collinear points
         while (h.size() >= 2 && is_left(h[h.size()-2], h[h.size()-1], pt[i]) <= 0) 
             h.pop_back();
         h.pb(pt[i]);
