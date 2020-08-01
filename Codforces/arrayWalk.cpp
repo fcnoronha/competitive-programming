@@ -1,3 +1,5 @@
+//codeforces.com/contest/1389/problem/B
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -23,7 +25,34 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
     fastio;
+
+    int t;
+    cin >> t;
+    while (t--) {
+
+        ll n, k, z;
+        cin >> n >> k >> z;
+
+        ll a[n], ac[n];
+        fr(i, n) cin >> a[i];
+
+        ac[0] = a[0];
+        frr(i, n-1) ac[i] = ac[i-1] + a[i];
+
+        ll ans = ac[k];
+        frr(i, n-1) {
+            ll kk = k, aux = 0ll;
+            frr(j, z) {
+                aux += a[i-1];
+                kk--;
+                if (kk >= i) ans = max(ans, ac[i]+aux);
+                aux += a[i];
+                kk--;
+                if (kk >= i) ans = max(ans, ac[kk]+aux);
+            }
+        }
+
+        p(ans);
+    }
 }

@@ -1,3 +1,5 @@
+//codeforces.com/contest/1182/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -23,7 +25,15 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
     fastio;
+
+    int n;
+    cin >> n;
+
+    if (n%2) {
+        p(0);
+        return 0;
+    }
+    n /= 2;
+    p((1<<(n)));
 }

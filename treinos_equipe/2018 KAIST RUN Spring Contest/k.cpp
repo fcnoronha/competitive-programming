@@ -23,7 +23,22 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
     fastio;
+
+    int n;
+    cin >> n;
+
+    int a[n];
+    fr(i, n) cin >> a[i];
+
+    int ans = 2;
+    fr(i, n) {
+        for (int j = i; j < n-2; j++) {
+            if (a[j] <= a[j+1] && a[j+1] <= a[j+2]) break;
+            if (a[j] >= a[j+1] && a[j+1] >= a[j+2]) break;
+            ans = max(ans, j-i+3);
+        }
+    }
+
+    p(ans);
 }

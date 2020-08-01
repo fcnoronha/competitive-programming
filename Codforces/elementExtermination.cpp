@@ -1,3 +1,5 @@
+//codeforces.com/contest/1375/problem/C
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -23,7 +25,36 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
     fastio;
+
+    int t;
+    cin >> t;
+    while (t--) {
+
+        int n;
+        cin >> n;
+
+        int a[n];
+        fr(i, n) cin >> a[i];
+
+        vector<pii> v;
+        int r = n-1, l = r-1;
+        while (r >= 0) {
+            int mn = a[r], mx = a[r];
+            while (l >= 0 && a[l] < a[l+1]) {
+                mn = min(mn, a[l]);
+                mx = max(mx, a[l]);
+                l--;
+            }
+            v.pb({mn, mx});
+            r = l;
+            l--;
+        }
+
+        int deu = 1;
+        if (v.size() > 1 && v[0].s < v[v.size()-1].f) deu = 0;
+
+        if (deu) p("YES");
+        else p("NO");
+    }
 }

@@ -1,3 +1,5 @@
+//codeforces.com/contest/1375/problem/A
+
 #include "bits/stdc++.h"
 using namespace std;
 
@@ -23,7 +25,23 @@ const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
 
 int main() {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
     fastio;
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        
+        int a[n];
+        fr(i, n) {
+            cin >> a[i];
+        }
+
+        fr(i, n) {
+            if (i%2) cout << abs(a[i]) << " ";
+            else cout << -abs(a[i]) << " ";
+        }
+        cout << endl;
+    }
 }
