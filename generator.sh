@@ -5,7 +5,7 @@
 
 # Generate copies of the template with the associeted chars
 
-alfabeto="abcdefghijklmnopqrstuv"
+alfabeto="abcdefghijklmnopqrstuvxwyz"
 mkdir -p todo
 for ((T=0, C='a'; T<$1; T=T+1))
 do

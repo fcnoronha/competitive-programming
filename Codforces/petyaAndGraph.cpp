@@ -1,3 +1,29 @@
+//codeforces.com/contest/1082/problem/G
+
+#include "bits/stdc++.h"
+using namespace std;
+
+#define f first
+#define s second
+#define pb push_back
+#define fr(i, n) for(int i = 0; i < n; i++)
+#define frr(i, n) for(int i = 1; i <= n; i++)
+#define dbg(x) cout << #x << " = " << x << endl
+#define all(x) x.begin(),x.end()
+#define ms(x, i) memset(x, i, sizeof(x))
+#define p(x) cout << x << "\n"
+#define pv(x) fr(i, x.size()) cout << x[i] << " \n"[i==x.size()-1]
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+
+typedef long long int ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f;
+
 /*
  * Dinic's Algorithm - O(EV^2) 
  * Matching - O(E*sqrt(V))
@@ -85,4 +111,32 @@ ll dinic(int s, int t) {
     return f;
 }
  
-// DONT FORGET TO INIT()
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    fastio;
+
+    int n, m;
+    cin >> n >> m;
+    
+    init(n+m+20);
+    int s = n+m+10, t = n+m+11;
+
+    frr(u, n) {
+        ll x;
+        cin >> x;
+        add_edge(u, t, x);
+    }
+
+    ll sm = 0ll;
+    frr(i, m) {
+        ll u, v, x;
+        cin >> u >> v >> x;
+        sm += x;
+        add_edge(s, n+i, x);
+        add_edge(n+i, u, INF);
+        add_edge(n+i, v, INF);
+    }
+
+    p(sm - dinic(s, t));
+}
