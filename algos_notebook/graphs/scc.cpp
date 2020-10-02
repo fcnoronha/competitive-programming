@@ -37,7 +37,6 @@ void tarjan(int u){
 void find_sccs() {
 
     memset(dfs_num, -1, sizeof(dfs_num));
-    memset(dfs_num, 0, sizeof(dfs_num));
     memset(vis, 0, sizeof(vis));
 
     dfsNC = numSCC = 0;
