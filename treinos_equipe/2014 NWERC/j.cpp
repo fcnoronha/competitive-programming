@@ -27,4 +27,26 @@ int main() {
     //freopen("input.txt", "r", stdin);
     //freopen("output.txt", "w", stdout);
     fastio;
+
+    int n;
+    cin >> n;
+
+    int ans = 0;
+    map<string, int> mp;
+    string s;
+
+    fr(i, n) {
+        cin >> s;
+        mp[s]++;
+    }
+
+    fr(i, n) {
+        cin >> s;
+        if (mp[s]) {
+            ans++;
+            mp[s]--;
+        }
+    }
+
+    p(ans);
 }
