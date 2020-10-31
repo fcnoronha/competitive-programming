@@ -12,3 +12,4 @@ do
     cp template.cpp todo/"${alfabeto:$T:1}.cpp"
 done
 touch todo/in
+cp makefile todo/
