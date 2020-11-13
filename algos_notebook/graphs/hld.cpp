@@ -3,13 +3,13 @@
 vector<int> prt, lvl, heavy, head, pos;
 int clk;
 
-int dfs(int u) {
+int dfs_hld(int u) {
     int sz = 1, mx_sz = 0;
     for (int v: adj[u]) {
         if (v == prt[u]) continue;
         prt[v] = u;
         lvl[v] = lvl[u] + 1;
-        int c_sz = dfs(v);
+        int c_sz = dfs_hld(v);
         sz += c_sz;
         if (mx_sz < c_sz)
             mx_sz = c_sz, heavy[u] = v;
@@ -17,25 +17,25 @@ int dfs(int u) {
     return sz;
 }
 
-void decompose(int u, int h) {
+void decompose_hld(int u, int h) {
     head[u] = h, pos[u] = clk++;
     if (heavy[u] != -1)
-        decompose(heavy[u], h);
+        decompose_hld(heavy[u], h);
     for (int v: adj[u]) 
         if (v != prt[u] && v != heavy[u])
-            decompose(v, v);
+            decompose_hld(v, v);
 }
 
 // it is better to let the nodes in the tree be 0 indexed
-void init(int root, int n) {
+void init_hld(int root, int n) {
     heavy = vector<int>(n, -1);
     head = vector<int>(n);
     prt = vector<int>(n);
     lvl = vector<int>(n);
     pos = vector<int>(n);
     clk = 0;
-    dfs(root);
-    decompose(root, root);
+    dfs_hld(root);
+    decompose_hld(root, root);
 }
 
 // query for the maximum element in a path
