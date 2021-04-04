@@ -4,29 +4,27 @@
 To initialize it, just update every entry node
 */
 
-#define MAXN 10000
+#define maxn 10000
 
-int bit[MAXN][MAXN];
+struct Bit2d {
+	int bit[maxn][maxn];
 
-// Return the sum of the area delimited by x and y
-int sum(int x, int y){
-		
-	int ans = 0;
-	
-	for (int i = x; i > 0; i -= i&-i)
-		for (int j = y; j > 0; j -= j&-j)
-			ans += bit[i][j];
+	// Return the sum of the area delimited by x and y
+	int sum(int x, int y){
+		int ans = 0;
+		for (int i = x; i > 0; i -= i&-i)
+			for (int j = y; j > 0; j -= j&-j)
+				ans += bit[i][j];
+		return ans;
+	}
 
-	return ans;
-}
-
-// Increase v in position {x,y}
-void update(int x, int y, int v){
-		
-	for (int i = x; i < MAXN; i += i&-i)
-		for (int j = y; j < MAXN; j += j&-j)
-			bit[i][j] += v;
-}
+	// Increase v in position {x,y}
+	void update(int x, int y, int v){
+		for (int i = x; i < maxn; i += i&-i)
+			for (int j = y; j < maxn; j += j&-j)
+				bit[i][j] += v;
+	}
+};
 
 /*
 

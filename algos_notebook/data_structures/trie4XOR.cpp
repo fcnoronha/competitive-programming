@@ -10,52 +10,55 @@
 
 #define maxn 7000009 // N * log2(max_val)
 
-int trie[maxn][2], amt[maxn], val[maxn];
-int cnt = 1; 
+struct Trie4XOR {
 
-void add(string &str, int idx, int node, int v) {
+	int trie[maxn][2], amt[maxn], val[maxn];
+	int cnt = 1; 
 
-	// Add str (binary rep) to the tree, and increment 1 in each node
-	// Store value V of that binary rep in the last node
-	amt[node]++;
-	if (idx == str.length()) {
-		val[node] = v;
-		return;
+	void add(string &str, int idx, int node, int v) {
+
+		// Add str (binary rep) to the tree, and increment 1 in each node
+		// Store value V of that binary rep in the last node
+		amt[node]++;
+		if (idx == str.length()) {
+			val[node] = v;
+			return;
+		}
+		int &lidx = trie[node][ str[idx]-'0' ];
+		if (lidx == -1) {
+			lidx = cnt++;
+			trie[lidx][0] = trie[lidx][1] = -1;
+		}
+
+		add(str, idx+1, lidx, v);
 	}
-	int &lidx = trie[node][ str[idx]-'0' ];
-	if (lidx == -1) {
-		lidx = cnt++;
-		trie[lidx][0] = trie[lidx][1] = -1;
+
+	int search(string str, int idx, int node) {
+
+		// Return biggest possible value for me to do an XOR operation
+		if (idx == str.length())
+			return val[node];
+		
+		int aux = ((str[idx]-'0')+1)%2; 
+		int &lidx = trie[node][aux];
+		if (amt[lidx] > 0)
+			return search(str, idx+1, lidx);
+
+		aux = (aux+1)%2;
+		return search(str, idx+1, trie[node][aux]);
 	}
 
-	add(str, idx+1, lidx, v);
-}
+	void del(string str, int idx, int node) {
 
-int search(string str, int idx, int node) {
+		// Descrease 1 in each node of the value represented by str
+		amt[node]--;
 
-	// Return biggest possible value for me to do an XOR operation
-	if (idx == str.length())
-		return val[node];
-	
-	int aux = ((str[idx]-'0')+1)%2; 
-	int &lidx = trie[node][aux];
-	if (amt[lidx] > 0)
-		return search(str, idx+1, lidx);
-
-	aux = (aux+1)%2;
-	return search(str, idx+1, trie[node][aux]);
-}
-
-void del(string str, int idx, int node) {
-
-	// Descrease 1 in each node of the value represented by str
-	amt[node]--;
-
-	if (idx == str.length())
-		return;
-	int &lidx = trie[node][ str[idx]-'0' ];
-	del(str, idx+1, lidx);
-}
+		if (idx == str.length())
+			return;
+		int &lidx = trie[node][ str[idx]-'0' ];
+		del(str, idx+1, lidx);
+	}
+};
 
 int main(){
 	fastio
@@ -63,13 +66,14 @@ int main(){
 	int q;
 	cin >> q;
 
-	trie[0][0] = trie[0][1] = -1;
+	Trie4XOR trie;ç
+	trie.trie[0][0] = trie.trie[0][1] = -1;
 
 	// Getting binary representation of an interger
 	// 30 is the size of myy representation
 	bitset<30> z(0);
 	string zero = z.to_string();
-	add(zero, 0, 0, 0);
+	trie.add(zero, 0, 0, 0);
 
 	while (q--){
 
@@ -81,10 +85,10 @@ int main(){
 		bitset<30> bt(x);
 		string str = bt.to_string();
 
-		if (op == '+') add(str, 0, 0, x);
-		else if (op == '-') del(str, 0, 0);
+		if (op == '+') tree.add(str, 0, 0, x);
+		else if (op == '-') tree.del(str, 0, 0);
 		else {
-			int s = search(str, 0, 0);
+			int s = tree.search(str, 0, 0);
 			cout << (s^x) << endl;
 		}
 	}

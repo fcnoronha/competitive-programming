@@ -6,17 +6,21 @@
     Must be index from 1, in the form [1, maxn].
 */
 
-int bit[maxn];
+#define maxn 100
 
-// [1, i] sum query
-int query_bit(int i){
-    int sm = 0;
-    for (; i > 0; i -= i&-i) sm += bit[i];
-    return sm;
-}
+struct Bit {
 
-// sum x on position i
-void update_bit(int i, int x){
-    for (; i <= maxn; i += i&-i) bit[i] += x;
-}
+    int bit[maxn];
 
+    // [1, i] sum query
+    int query(int i){
+        int sm = 0;
+        for (; i > 0; i -= i&-i) sm += bit[i];
+        return sm;
+    }
+
+    // sum x on position i
+    void update(int i, int x){
+        for (; i <= maxn; i += i&-i) bit[i] += x;
+    }
+};

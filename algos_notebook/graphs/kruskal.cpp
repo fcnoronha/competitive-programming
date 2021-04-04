@@ -4,52 +4,56 @@
 #define maxn 50500 // vertices
 #define maxm 200200 // edges
 
-typedef struct edge {
-    int dis;
-    int u, v;
-} t_edge;
+struct Kruskal {
 
-bool comp(t_edge a, t_edge b){ 
-	return a.dis < b.dis; 
-}
+    typedef struct edge {
+        int dis;
+        int u, v;
+    } t_edge;
 
-int n, m; 
-int id[maxn], sz[maxn];
-t_edge edg[maxm], mst[maxm];
+    bool comp(t_edge a, t_edge b){ 
+        return a.dis < b.dis; 
+    }
 
-int find(int p){
-    if (id[p] == p) return p;
-    return id[p] = find(id[p]); 
-}
+    int n, m; 
+    int id[maxn], sz[maxn];
+    t_edge edg[maxm], mst[maxm];
 
-void uni(int p, int q){
-	p = find(p);
-	q = find(q);
+    int find(int p){
+        if (id[p] == p) return p;
+        return id[p] = find(id[p]); 
+    }
 
-	if (p == q) return;
-	if (sz[p] > sz[q]) swap(p, q);
+    void uni(int p, int q){
+        p = find(p);
+        q = find(q);
 
-	id[p] = q;
-	sz[q] += sz[p];
-}
+        if (p == q) return;
+        if (sz[p] > sz[q]) swap(p, q);
+
+        id[p] = q;
+        sz[q] += sz[p];
+    }
+};
 
 int main(){    
     cin >> n >> m;
     
+    Kruskal K;
     for (int i = 0; i < m; i++)
-        cin >> edg[i].u >> edg[i].v >> edg[i].dis;
+        cin >> k.edg[i].u >> k.edg[i].v >> k.edg[i].dis;
         
     // 0-indexed, change if graph is not 0 idexed
-    for (int i = 0; i < n; i++) id[i] = i, sz[i] = 1;
-    sort(edg, edg+m, comp);
+    for (int i = 0; i < n; i++) k.id[i] = i, k.sz[i] = 1;
+    sort(k.edg, k.edg+m, k.comp);
     
     int mst_sz = 0;
     for (int i = 0; i < m; i++){
-        if (find(edg[i].u) == find(edg[i].v)) continue;
-        uni(edg[i].u, edg[i].v);           
-        mst[mst_sz++] = edg[i];
+        if (k.find(edg[i].u) == k.find(edg[i].v)) continue;
+        k.uni(k.edg[i].u, k.edg[i].v);           
+        k.mst[mst_sz++] = k.edg[i];
     }
 
     for(int i = 0; i < mst_sz; i++) 	
-    	cout << mst[i].u << " " << mst[i].v << " " << mst[i].dis << endl;
+    	cout << k.mst[i].u << " " << k.mst[i].v << " " << k.mst[i].dis << endl;
 }

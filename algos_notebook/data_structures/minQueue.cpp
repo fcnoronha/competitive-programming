@@ -4,7 +4,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-struct minQueue {
+struct MinQueue {
     
     stack<pair<int, int>> s1, s2;
 
