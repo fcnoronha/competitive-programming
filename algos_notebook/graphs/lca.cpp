@@ -8,11 +8,11 @@
 #define maxn 1000
 #define maxl 25 // ceil(log2(n))
 
-struct Lca {
+int timer;
+int tin[maxn], tout[maxn], up[maxn][maxl];
+vi adj[maxn]; // graph rep
 
-    int timer;
-    int tin[maxn], tout[maxn], up[maxn][maxl];
-    vi adj[maxn]; // graph rep
+struct Lca {
 
     void dfs(int u, int p) {
         tin[u] = ++timer;
