@@ -1,107 +1,65 @@
+#include "bits/stdc++.h"
+using namespace std;
 
-// PERSISTENT SEGMENT TREE
+#define NEUTRAL INT_MAX
 
-#define maxn 100
+struct PSTree { 
+    // queries of type [s, e)
+    // persistent segment tree for min over integers
+    // segment tree, left childs, right childs
+    vector<int> st, L, R;
+    int n, rt;
+	
+    PSTree(int _n): st(1,NEUTRAL), L(1,0), R(1,0), n(_n), rt(0) {}
+	
+    int new_node(int v, int l=0, int r=0) {
+		int ks = st.size();
+		st.push_back(v);
+        L.push_back(l);
+        R.push_back(r);
+		return ks;
+	}
 
-struct SegTreePersistent
-{
-    struct node  {
-        // stores sum of the elements in node
-        int val;
-        node* left, *right;
+	int init(int s, int e, int *a) {
+        if (s+1 == e) return new_node(a[s]);
+        int m = (s+e)/2, l = init(s, m, a), r = init(m, e, a);
+		return new_node(min(st[l], st[r]), l, r);
+	}
 
-        node() {}
-        node(node* l, node* r, int v) {
-            left = l;
-            right = r;
-            val = v;
+	int upd(int k, int s, int e, int p, int v) {
+        int ks = new_node(st[k], L[k], R[k]);
+        if (s+1 == e) {
+            st[ks] = v;
+            return ks;
         }
-    };
-
-    int arr[maxn]; // input array
-    node* version[maxn]; // root pointers for all versions
-
-    // Constructs Version-0, O(nlogn)
-    void build(node* n,int low,int high) {
-        if (low==high) {
-            n->val = arr[low];
-            return;
+		int m = (s+e)/2, ps;
+        if (p < m) { 
+            ps = upd(L[ks], s, m, p, v);
+            L[ks] = ps;
         }
-        int mid = (low+high) / 2;
-        n->left = new node(NULL, NULL, 0);
-        n->right = new node(NULL, NULL, 0);
-        build(n->left, low, mid);
-        build(n->right, mid+1, high);
-        n->val = n->left->val + n->right->val;
-    }
-
-
-    // Upgrades to new Version O(logn)
-    void upgrade(node* prev, node* cur, int low, int high, int idx, int value) {
-        if (idx > high || idx < low || low > high)
-            return;
-
-        if (low == high) {
-            cur->val = value;
-            return;
+		else {
+            ps = upd(R[ks], m, e, p, v);
+            R[ks] = ps;
         }
-        int mid = (low+high) / 2;
-        if (idx <= mid) {
-            cur->right = prev->right; // right child of previous version
-            cur->left = new node(NULL, NULL, 0); //  new node in current version
-            upgrade(prev->left,cur->left, low, mid, idx, value);
-        }
-        else {
-            cur->left = prev->left; // left child of previous version
-            cur->right = new node(NULL, NULL, 0);//  new node in current version
-            upgrade(prev->right, cur->right, mid+1, high, idx, value);
-        }
-        cur->val = cur->left->val + cur->right->val; // data for current version
-    }
+        st[ks] = min(st[L[ks]], st[R[ks]]);
+		return ks;
+	}
 
-    int query(node* n, int low, int high, int l, int r)
-    {
-        if (l > high or r < low or low > high)
-        return 0;
-        if (l <= low and high <= r)
-        return n->val;
-        int mid = (low+high) / 2;
-        int p1 = query(n->left,low,mid,l,r);
-        int p2 = query(n->right,mid+1,high,l,r);
-        return p1+p2;
-    }
-};
+	int query(int k, int s, int e, int a, int b) {
+		if (e <= a || b <= s) return NEUTRAL;
+		if (a <= s && e <= b) return st[k];
+        int m = (s+e)/2;
+		return min(query(L[k], s, m, a, b), query(R[k], m, e, a, b));
+	}
 
-int main() {
-    int A[] = {1,2,3,4,5};
-    int n = 5
+	int query(int k,int a, int b) { return query(k, 0, n, a, b); }
+	int upd(int k, int p, int v) { return rt = upd(k, 0, n, p, v); }
+	int upd(int p, int v) { return upd(rt, p, v); } // update on last root
+	int init(int *a) { return init(0, n, a); }
+}; 
 
-    SegTreePersistent tree;
-    for (int i=0; i<n; i++)
-       tree.arr[i] = A[i];
-
-    // creating Version-0
-    node* root = new node(NULL, NULL, 0);
-    tree.build(root, 0, n-1);
-    // storing root node for version-0
-    tree.version[0] = root;
-    // upgrading to version-1
-    tree.version[1] = new node(NULL, NULL, 0);
-    tree.upgrade(version[0], version[1], 0, n-1, 4, 1);
-    // upgrading to version-2
-    tree.version[2] = new node(NULL, NULL, 0);
-    tree.upgrade(version[1],version[2], 0, n-1, 2, 10);
-    cout << "In version 1 , query(0,4) : ";
-    cout << tree.query(version[1], 0, n-1, 0, 4) << endl;
-    cout << "In version 2 , query(3,4) : ";
-    cout << tree.query(version[2], 0, n-1, 3, 4) << endl;
-    cout << "In version 0 , query(0,3) : ";
-    cout << tree.query(version[0], 0, n-1, 0, 3) << endl;
-    return 0;
-}
-
-/*
-In version 1 , query(0,4) : 11
-In version 2 , query(3,4) : 5
-In version 0 , query(0,3) : 10
-*/
+// usage: 
+//   STree rmq(n);
+//   root=rmq.init(x);
+//   new_root=rmq.upd(root,i,v);
+//   rmq.query(root,s,e);
