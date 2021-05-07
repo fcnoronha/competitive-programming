@@ -1,12 +1,12 @@
 // SEGMENT TREE - BASIC IMPLEMENTATION
 // HERE MAKES SUM QUERIES AND Ai = Ai%X, ie[l,r] QUERIES
 
-#define maxn 112345
+struct STree {
 
-struct SegTree {
+    vector<long long int> sum, max_val;
+    int n;
 
-    ll sum[maxn*4], max_val[maxn*4];
-    int n, m;
+    STree(int _n): sum(_n*4), max_val(_n*4), n(_n) {}
 
     // set A[idx] to val
     void update(int node, int i, int j, int idx, ll val){
@@ -47,6 +47,7 @@ struct SegTree {
         return ansl + ansr;
     }
 };
+
 
 // query_sum(1, 0, n-1, l, r));
 // update_mod(1, 0, n-1, l, r, x);

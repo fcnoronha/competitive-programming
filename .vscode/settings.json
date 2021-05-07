@@ -1,12 +1,8 @@
 {
     "files.associations": {
-        "iostream": "cpp"
-    },
-    "workbench.iconTheme": "material-icon-theme"
-
-    "workbench.colorCustomizations": {
-        "statusBar.background" : "#000000",
-        "statusBar.noFolderBackground" : "#000000",
-        "statusBar.debuggingBackground": "#511f1f"
-       }
+        "*.pl": "prolog",
+        "*.jdp": "jenkinsfile",
+        "iostream": "cpp",
+        "ostream": "cpp"
+    }
 }

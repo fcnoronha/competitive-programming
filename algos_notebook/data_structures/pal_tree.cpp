@@ -12,11 +12,13 @@ struct PalTree
         int insert_edg[26], suffix_edg;
     };
 
-    Node root1, root2, tree[maxn];
+    vector<Node> tree;
+    Node root1, root2;
     int cur_node, ptr;
     string s;
 
     void init(string str) {
+        tree.resize(maxn);
         root1.length = -1;
         root1.suffix_edg = 1;
         root2.length = 0;

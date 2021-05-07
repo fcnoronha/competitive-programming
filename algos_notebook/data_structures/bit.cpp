@@ -6,11 +6,11 @@
     Must be index from 1, in the form [1, maxn].
 */
 
-#define maxn 100
-
 struct Bit {
+    vector<int> bit;
+    int n;
 
-    int bit[maxn];
+    Bit(int _n): bit(_n, 0), n(_n) {}
 
     // [1, i] sum query
     int query(int i){
@@ -21,6 +21,6 @@ struct Bit {
 
     // sum x on position i
     void update(int i, int x){
-        for (; i <= maxn; i += i&-i) bit[i] += x;
+        for (; i < n; i += i&-i) bit[i] += x;
     }
 };

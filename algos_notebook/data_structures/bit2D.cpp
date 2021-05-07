@@ -1,31 +1,32 @@
 /*
-	BINARY INDEXED TREE - 2D
-	
+    BINARY INDEXED TREE - 2D
+    
 To initialize it, just update every entry node
 */
 
-#define maxn 10000
 
 struct Bit2d {
-	int bit[maxn][maxn];
+    vector<vector<int>> bit;
+    int n;
 
-	// Return the sum of the area delimited by x and y
-	int sum(int x, int y){
-		int ans = 0;
-		for (int i = x; i > 0; i -= i&-i)
-			for (int j = y; j > 0; j -= j&-j)
-				ans += bit[i][j];
-		return ans;
-	}
+    Bit2d(int _n): bit(_n, vector<int>(_n, 0)), n(_n) {} 
 
-	// Increase v in position {x,y}
-	void update(int x, int y, int v){
-		for (int i = x; i < maxn; i += i&-i)
-			for (int j = y; j < maxn; j += j&-j)
-				bit[i][j] += v;
-	}
+    // Return the sum of the area delimited by x and y
+    int sum(int x, int y){
+        int ans = 0;
+        for (int i = x; i > 0; i -= i&-i)
+            for (int j = y; j > 0; j -= j&-j)
+                ans += bit[i][j];
+        return ans;
+    }
+
+    // Increase v in position {x,y}
+    void update(int x, int y, int v){
+        for (int i = x; i < n; i += i&-i)
+            for (int j = y; j < n; j += j&-j)
+                bit[i][j] += v;
+    }
 };
-
 /*
 
  In order to calculate de sum of the area deliminited

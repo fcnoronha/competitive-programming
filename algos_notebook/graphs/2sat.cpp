@@ -5,14 +5,16 @@
 
 #define maxn 112345 // 2*(#MAXelements)
 
-struct 2sat {
+struct TwoSat {
 
-    int low[maxn], pre[maxn], id[maxn];
+    vector<int> low, pre, id;
     int clk = 0, cnt = 0, numSCC = 0; // cnt == 2*(#elements) 
-    bool eval[maxn];
+    vector<bool> eval;
 
-    vector<int> adj[maxn];
+    vector<vector<int>> adj;
     stack<int> nodes;
+
+    TwoSat(int _maxn): low(_maxn, 0), pre(_maxn, -1), id(_maxn, 0), eval(_maxn, 0), adj(_maxn, vector<int>()) {}
 
     void dfs(int v){
         nodes.push(v);
@@ -70,9 +72,8 @@ struct 2sat {
 
 int main(){
 
-    2sat sat;
+    TwoSat sat(maxn);
     sat.cnt = 2*n; // set up
-    ms(sat.pre, -1);
 
     // REMEMBER IT IS 1 INDEXED
 }
