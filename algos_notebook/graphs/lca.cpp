@@ -8,11 +8,14 @@
 #define maxn 1000
 #define maxl 25 // ceil(log2(n))
 
-int timer;
-int tin[maxn], tout[maxn], up[maxn][maxl];
-vi adj[maxn]; // graph rep
 
 struct Lca {
+
+    int timer;
+    vector<int> tin, tout;
+    vector<vector<int>> up, adj; // graph rep
+
+    Lca(int _n, int _l): tin(_n, 0), tout(_n, 0), up(_n, vector<int<(_l, 0)), adj(_n, vector<int>()) {}
 
     void dfs(int u, int p) {
         tin[u] = ++timer;
@@ -43,6 +46,6 @@ struct Lca {
 
 int main() {
 
-    Lca l;
+    Lca l(maxn, maxl);
     l.dfs(root, root); // init
 }
