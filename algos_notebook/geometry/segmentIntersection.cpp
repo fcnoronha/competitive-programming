@@ -1,6 +1,6 @@
 // BENTLEY AND OTTMANN ALGORITHM FOR LINE INTERSECTION
 // O(nlogn)
-// Find first intersection
+// Find first intersection through line sweep
 
 const double EPS = 1E-9;
 
