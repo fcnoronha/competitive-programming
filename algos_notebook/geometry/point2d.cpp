@@ -31,18 +31,18 @@ public:
 
     Point () { }
 
-    Point (T x, T y) : x(x), y(y) {}
+    Point (T _x, T _y) : x(_x), y(_y) {}
 
     bool operator == (const Point &b) const {
         return (abs (x - b.x) < EPS and abs (y - b.y) < EPS);
     }
 
     bool operator < (const Point &b) const {
-        return ((x < b.x) or ((x == b.x) and y < b.y));
+        return ((x < b.x) or ((x - b.x) < EPS and y < b.y));
     }
 
     bool operator > (const Point &b) const {
-        return ((x > b.x) or ((x == b.x) and y > b.y));
+        return ((x > b.x) or ((x - b.x) < EPS and y > b.y));
     }
 
     // produto vetorial:
@@ -83,7 +83,7 @@ public:
         return x*x + y*y;
     }
 
-    T len () const {
+    double len () const {
         return sqrt (x*x + y*y);
     }
 
@@ -92,7 +92,7 @@ public:
         return ((*this)-b)*((*this)-b);
     }
 
-    T dpp (const Point &b) const {
+    double dpp (const Point &b) const {
         return ((*this)-b).len();
     }
 

@@ -3,6 +3,7 @@
         "*.pl": "prolog",
         "*.jdp": "jenkinsfile",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "cmath": "cpp"
     }
 }
