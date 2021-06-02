@@ -1,75 +1,60 @@
 // SEGTREE - LAZY PROPAGATION
-// Reference code - Range update and range querie for max
+// Reference code - Range add update and range querie for sum
+// Ranges are closed on the end - [a, b)
 
-#define maxn 100000
+struct STree {
 
-struct LSTree {
-    vector<int> seg, lzy;
-    int n; // array size
-    int h; // seg heigth
-
-    LSTree(int _n): seg(_n*2), lzy(_n*2), n(_n), h(32 - __builtin_clz(_n)) {}
-
-    // just to apply changes in one node
-    void apply(int p, int val) {
-        seg[p] += val;
-        if (p < n) 
-            lzy[p] += val;
-    }
-
-    // update all the parents of a given node
-    void build(int p) {
-        while (p > 1) { 
-            p >>= 1;
-            seg[p] = max(seg[p<<1], seg[p<<1|1]) + lzy[p];
-        }
-    }
-
-    // propagates changes from all the parents of a node, down the tree
-    void push(int p) {
-        for (int s = h; s > 0; --s) {
-            int i = p >> s;
-            if (lzy[i]) {
-                apply(i<<1, lzy[i]);
-                apply(i<<1|1, lzy[i]);
-                lzy[i] = 0;
-            }
-        }
-    }
-
-    // add val to [l, r)
-    void update(int l, int r, int val) {
-        l += n, r += n;
-        int l0 = l, r0 = r;
-        for (; l < r; l >>= 1, r >>= 1) {
-            if (l&1) apply(l++, val);
-            if (r&1) apply(--r, val);
-        }
-        build(l0);
-        build(r0 - 1);
-    }
-
-    // query [l, r), 0-indexed
-    int query(int l, int r) {
-        l += n, r += n;
-        push(l);
-        push(r - 1);
-        int ans = -INF;
-        for (; l < r; l >>= 1, r >>= 1) {
-            if (l&1) ans = max(ans, seg[l++]);
-            if (r&1) ans = max(seg[--r], ans);
-        }
-        return ans;
-    }
-};
-
-int main() {
-
-    int n; cin >> n;
-    LSTree tree(n);
+    int NEUTRAL = 0;
+    vector<int> st, lazy;
+    int n;
     
-    for (int i = 0; i < n; i++) {
-        int val; cin >> val;
-        tree.update(i, i+1, val);
+    STree(int _n): st(4*_n+5, 0), lazy(4*_n+5, NEUTRAL), n(_n) {}
+    
+    void init(int k, int s, int e, int *a) { // a is array
+        lazy[k] = NEUTRAL; // lazy neutral element
+        if (s+1==e) { 
+            st[k] = a[s];
+            return;
+        }
+        int m = (s+e)/2;
+        init(2*k  , s, m, a);
+        init(2*k+1, m, e, a);
+        st[k] = st[2*k] + st[2*k+1]; // operation
     }
-}
+
+    void push(int k, int s, int e){
+        if (lazy[k] == NEUTRAL) return; // if neutral, nothing to do
+        st[k] += (e-s)*lazy[k]; // update st according to lazy
+        if (s+1<e) { // propagate to children
+            lazy[2*k] += lazy[k];
+            lazy[2*k+1] += lazy[k];
+        }
+        lazy[k] = NEUTRAL; // clear node lazy
+    }
+
+    void upd(int k, int s, int e, int a, int b, int v){
+        push(k, s, e);
+        if (s>=b || e<=a) return;
+        if (s>=a && e<=b ){
+            lazy[k] += v; // accumulate lazy
+            push(k, s, e);return;
+        }
+        int m = (s+e)/2;
+        upd(2*k, s, m, a, b, v);
+        upd(2*k+1, m, e, a, b, v);
+        st[k] = st[2*k]+st[2*k+1]; // operation
+    }
+
+    int query(int k, int s, int e, int a, int b){
+        if (s>=b || e<=a) return 0; // operation neutral
+        push(k, s, e);
+        if (s>=a && e<=b) return st[k];
+        int m= (s+e)/2;
+        return query(2*k, s, m, a, b) + query(2*k+1, m, e, a, b); // operation
+    }
+
+    void init(int *a) { init(1,0,n,a); }
+    void upd(int a, int b, int v) { upd(1,0,n,a,b,v); }
+    int query(int a, int b) { return query(1,0,n,a,b); }
+}; 
+// usage: STree rmq(n);rmq.init(x);rmq.upd(s,e,v);rmq.query(s,e);
