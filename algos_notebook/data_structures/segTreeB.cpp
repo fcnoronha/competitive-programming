@@ -46,6 +46,10 @@ struct STree {
         ll ansr = query_sum(r, mid+1, j, a, b);
         return ansl + ansr;
     }
+
+    ll query_sum(int l, int r)) { return query_sum(1, 0, n-1, l, r)); };
+    void update_mod(int l, int r, int x) { update_mod(1, 0, n-1, l, r, x); };
+    void update(int k, int x) { update(1, 0, n-1, k, x); };
 };
 
 
