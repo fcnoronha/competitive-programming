@@ -2,17 +2,22 @@
 // O(log3 n), where n is the size of my set
 
 // Interger version
-int a[MAXN]; // Array with my values
 int ts(int l, int r, int x){
-    // Returns possition of X in array A
-    if (l > r) return -1; // Can't find
-    int m1 = l + (r-l) / 3;
-    int m2 = m1 + (r-l) / 3;
-    if (a[m1] == x) return m1;
-    if (a[m2] == x) return m2;
-    if (x < a[m1]) return ts(l, m1-1, x);
-    if (x > a[m2]) return ts(m2+1, r, x);
-    return ts(m1+1, m2-1, x);
+i   
+    while (l < r) {
+
+        int m1 = l + (r-l) / 3;
+        int m2 = r - (r-l) / 3;
+
+        int f1 = f(m1); 
+        int f2 = f(m2);
+
+        // Change if wants minimum
+        if (f1 < f2) l = m1+1;
+        else         r = m2-1;
+    }
+
+    return f(l);
 }
 
 // Double inplementation, used for functions
