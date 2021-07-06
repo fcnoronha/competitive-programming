@@ -1,6 +1,27 @@
+#include "bits/stdc++.h"
+using namespace std;
 
-// PALINDROMIC TREE
-// Find all distinct palindromes substrings in O(n)
+#define f first
+#define s second
+#define pb push_back
+#define fr(i, n) for(int i = 0; i < n; i++)
+#define frr(i, n) for(int i = 1; i <= n; i++)
+#define dbg(x) cout << #x << " = " << x << endl
+#define dbgpt(x) cout << #x << " = " << x.f << " " << x.s << endl
+#define all(x) x.begin(),x.end()
+#define ms(x, i) memset(x, i, sizeof(x))
+#define p(x) cout << x << "\n"
+#define pv(x) fr(i, x.size()) cout << x[i] << " \n"[i==x.size()-1]
+#define fastio ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+
+typedef long long int ll;
+typedef pair<int,int> pii;
+typedef pair<ll,ll> pll;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f;
 
 struct palindromic_tree {
 
@@ -26,6 +47,7 @@ struct palindromic_tree {
     }
     
     void add(int i) {
+        
         int parent = nodes[current].length == i 
             ? nodes[current].link 
             : current;
@@ -68,3 +90,25 @@ struct palindromic_tree {
         return pal_occurrences;
     }
 };
+
+int main() {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
+    fastio;
+
+    int k; cin >> k;
+    string s; cin >> s;
+
+    palindromic_tree t(s);
+    auto mp = t.occurrences_of_each_palindrome();
+
+    int ans = 0;
+    for (auto x: mp) {
+        if (x.f.f >= x.f.s) continue;
+        // for (int i = x.f.f; i < x.f.s; i++) cout << s[i];
+        // cout << " " << x.s << endl;
+        if (x.f.s - x.f.f == k) ans += x.s; 
+    }
+
+    p(ans);
+}

@@ -22,10 +22,44 @@ typedef vector<ll> vl;
 
 const int INF = 0x3f3f3f3f;
 const ll LINF = 0x3f3f3f3f3f3f3f;
-const ll MOD = 1000000007;
 
 int main() {
     //freopen("input.txt", "r", stdin);
     //freopen("output.txt", "w", stdout);
     fastio;
+
+    int t; cin >> t;
+    while (t--) {
+        
+        string s; cin >> s;
+
+        map<char, int> f;
+        map<char, bool> usd;
+        for (auto c: s) f[c]++;
+
+        fr(i, s.size()) {
+
+            map<char, int> seen;
+            string ss;
+            int bst = i;
+            for (int j = i; j < s.size(); j++) {
+                seen[s[j]]++;
+                if (s[j] > s[bst]) bst = j;
+                if (f[s[j]] == seen[s[j]]) break;
+            }
+
+            usd[s[bst]] = 1;
+            for (int j = i; j < bst; j++) f[s[j]]--;
+
+            for (int j = 0; j < i; j++) ss += s[j];
+            ss += s[bst];
+            for (int j = bst+1; j < s.size(); j++)
+                if (!usd[s[j]]) ss += s[j];
+
+            s = ss;
+            // dbg(s);
+        }
+
+        p(s);
+    }
 }
